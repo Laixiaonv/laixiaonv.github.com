@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>JavaScript 函数(方法)、对象和数组</title>
+		<link rel="stylesheet" href="../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+	</head>
+	<body >
+		<!--头部-->
+		<div class="head">
+			<div class="head_nav">XiaoPang</div>
+			<ul>
+				<li><a href="#">JavaScript</a></li>
+				<li><a href="#">css</a></li>
+				<li><a href="#">html</a></li>
+				<li><a href="../index.html">首页</a></li>
+			</ul>
+		</div>
+		<div class="box">
+			<div class="left">
+				<h2>JavaScript 函数（方法）:一次声明、多次调用</h2>
+				<div class="font">优点：减少代码冗余；隐藏实现细节、封装</div>
+				<ul class="first">
+					<li>声明</li>
+					<li>return 返回值</li>
+					<li>arguments 对象</li>
+				</ul>
+				<h2>详解</h2>
+				<ul class="first">
+					<li>函数声明：用function关键字来声明，后跟一组参数以及函数体
+						<ul class="second">
+							<li>无参函数
+								<pre class="example">
+								function dome() {		//声明函数
+								 	alert("小女欧尼")；		//函数体
+								}
+								dome();	//调用函数
+								</pre>
+							</li>
+							<li>有参函数
+								<pre class="example">
+									function dome(a,b) {		//形参，无初始值，用“，”隔开
+									 	document.write(a*b);		//函数体
+									}
+									dome(5,5);	//调用函数
+								</pre>
+							</li>
+							<div class="font">有参与无参函数相比，扩展性增大！</div>
+						</ul>
+					</li>
+					<li>return 返回值
+						<div class="font">有返回值的函数通过return返回，ps：return之后的代码不会被执行</div>
+						<ul class="second">
+							<li>
+								<pre class="example">
+								function box(num,price) {		//声明函数
+								 	var sum=num*price;
+								 	return sum;       <span class="font">//通过return将计算结果返回给调用者，此处若无return“接住”sum值，就会输出undefined,有return时，输出100</span>
+								}
+								dome();	//调用函数
+								</pre>
+							</li>
+							<li>
+								<pre class="example">
+								function box() {
+								 	var sum=1;<span class="font">//在函数内部声明的变量，只能在函数内部使用，函数内部声明的变量，在函数外部不能直接访问。</span>
+								}
+								alert(num);   //此时是错误的
+								</pre>
+							</li>
+							<li>
+								<pre class="example">
+								alert(num);
+								var num=10;     //此时输出undefined
+								<div class="font">声明会提前但是赋值不会提前，所以会输出undefined</div>
+								</pre>
+							</li>
+							<li>
+								<pre class="example">
+								var num=10;
+								function dome(){
+									alert(num);
+									var num=15;    //若无此句，此时输出10
+								} 
+								dome();   //此时输出undefined
+								<div class="font">由该例子可以发现，当外部与内部变量名相同时，会有限选择内部变量，此时声明提前，赋值未提前<br/>所以输出undefined</div>
+								</pre>
+							</li>
+						</ul>
+					</li>
+					<li>arguments 对象:可以用数组下标的方式"[]"引用arguments的元素。<br/>arguments.length为函数实参个数，arguments.callee引用函数自身
+						<ul class="second">
+							<li>接收传递进来的参数：不介意传递进来多少参数，也不会因为参数不统一而错误</li>
+							<li>arguments.length（到传递进来的参数的个数）：可以借助arguments的length属性来检测调用函数时是否使用了正确数目的实际参数</li>
+							<li>arguments.callee：表示对函数对象本身的引用，也就是所指定的 Function 对象的正文，这有利于实现匿名函数的递归或者保证函数的封装性。
+							<pre class="example">
+								var sum=function(n){
+								　  if(1==n) {
+								       return 1;
+								　  } else {
+								       return n + arguments.callee(n-1);
+								    }
+								}
+								alert(sum(100));
+							</pre>
+							</li>
+							<li><div class="font">解释一下什么是“递归”：一个过程（或函数）直接或间接调用自己本身</div>
+							<pre class="example">
+								阶乘：9*8*7*6*5*4*3*2*1
+								function box(n){
+									if(n <= 1){
+										return n;			
+									}else{
+										return n*box(n-1);
+									}
+								}
+								document.write(box(9));
+								<div class="font">return:用来返回控制和函数结果,函数在一系列的代码执行后会得到一个期望的返回值<br/>，而此值就是通过return语句返回，并且将控制权返回给主调函数</div>
+								<div class="example">通常情况下return后面跟有表达式，但是并不是绝对的，例如:return;<br/>此情况就是单纯的将控制权转交给主调函数继续执行。</div>
+								
+							</pre>
+							</li>
+						</ul>
+					</li>
+					<li>匿名函数
+						<pre class="example">
+							var box = function(){
+								alert(10);
+							}
+						</pre>
+						<div class="font">注意：匿名函数声明不会提前，所以若在其之前调用box()，会报错<br/>即不能再赋值前调用函数</div>
+					</li>
+				</ul>
+				<h2>JavaScript 对象和数组</h2>
+				<p>对象就是指引用类型，对象的值就是引用类型的实例</p>
+				<ul class="first">
+					<li>object类型<br/>
+						创建方法：new运算符；字面表示法
+						<ul class="second">
+							<li>var goods = new Object();  //空对象，无任何属性和行为
+								<div class="font">此处new可以省略，Object首字母大写</div>
+								<pre class="example">
+								为对象添加属性:
+									goods.name = "西瓜" ;
+									goods.price = 1.8 ;
+									goods.num = 10 ;
+								获取：		a.对象名.属性名
+									document.write(goods.name);  //输出“西瓜”
+											b.对象名['属性名']
+									document.write(goods['name']);  //输出“西瓜”
+								<div class="font">由上也可推理得出：goods['price']= 1.8 这样的添加属性形式也是可行的</div>
+								</pre>
+								<pre class="example">
+								为对象添加行为（函数或方法）:
+								a.命名函数   	goods.input = demo;   //<span class="font">此处demo不加“()”，将函数名直接给goods.input</span>
+												goods.input();		//调用对象行为（函数）；
+												function demo{
+													alert("……");
+												}
+								b.匿名函数的赋值形式	goods.input = function(){
+															alert("……");
+														}
+														goods.input();
+								</pre>
+							</li>
+							<li>字面量表示法
+								<pre class="example">
+								写法一：
+										var user={ };
+										user.name = "xiaohei";
+										user.age = 18;
+										user.music = function(){
+											alert("会唱歌");
+										}
+								写法二：<span class="font">键值对形式    key : value</span>
+										var user={
+											name : "xiaohei",   		 //<span class="font">注意：以逗号隔开</span>
+											age : 18,
+											music : function(){
+												alert("会唱歌");
+											}
+										}
+								<span class="font">输出方式一致：document.write(user.name+user.age);
+											user.music();</span>
+								</pre>
+							</li>
+							<li><apan class="font">添加一条用法：删除属性(delete  对象名.属性名)</apan>
+								 <pre class="example">
+								 delete   user.name
+								 </pre>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--页脚-->
+		<div class="footer">
+			<div class="footer_main">
+				<div class="f_text2">我也不知道这里要写什么</div>
+			</div>
+		</div>
+	</body>
+</html>

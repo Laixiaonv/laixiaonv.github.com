@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>JavaScript语法、流程控制语句</title>
+		<link rel="stylesheet" href="../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+	</head>
+	<body >
+		<!--头部-->
+		<div class="head">
+			<div class="head_nav">XiaoPang</div>
+			<ul>
+				<li><a href="#">JavaScript</a></li>
+				<li><a href="#">css</a></li>
+				<li><a href="#">html</a></li>
+				<li><a href="../index.html">首页</a></li>
+			</ul>
+		</div>
+		<div class="box">
+			<div class="left">
+				<h2>JavaScript 函数（方法）</h2>
+				<ul class="first">
+					<li>运算符：+、-、*、/、%、++、--（有优先级）
+						<ul class="second">
+							<li>number与number相加，做运算
+								<div class="font">number与boolean做运算，会把true转为1，把false转为0</div>
+							</li>
+							<li>string与任何类型相加都是做拼接
+								<div class="font">数值的字符串与number类型做运算，数值字符会自动转换成number类型</div>
+								<div class="font">数值的字符串与boolean类型做加法，true转为1，false转为0</div>
+							</li>
+							<li>"++"、"--"
+								<div class="font">在前先运算再赋值，在后先赋值再运算</div>
+							</li>
+						</ul>
+					</li>
+					<li>赋值运算符： =、+=、-=、*=、/=、%=</li>
+					<li>比较运算符：==、===、!==、!=、<、>、>=、<=
+						<div class="font">===、!==都为严格判断（即要判断数据类型）<br/>!= 在表达式两边的数据类型不一致时,会隐式转换为相同数据类型,然后对值进行比较;<br/>!== 不会进行类型转换,在比较时除了对值进行比较以外,还比较两边的数据类型, 它是恒等运算符===的非形式.</div>
+						<pre class="example">
+						var num = 1;
+						var str = '1';
+						var test = 1;
+						test == num ;  //true　相同类型　相同值
+						test === num ; //true　相同类型　相同值
+						test !== num ; //false test与num类型相同，其值也相同,　非运算肯定是false 
+						num == str ;  //true 　把str转换为数字，检查其是否相等。
+						num != str ;  //false  == 的 非运算
+						num === str ; //false  类型不同，直接返回false
+						num !== str ; //true   num 与 str类型不同 意味着其两者不等　非运算自然是true啦 
+						</pre>
+					</li>
+					<li>逻辑运算符：&&（且）、||（或）、!（否）
+						<div class="example">"&&"和"&"区别：&&执行效率比较高</div>
+						<div class="example">如： a>=10 && b<=0<br/>若a>=0不成立，则b<=10直接跳过，不再进行下一步的判断</div>
+						<div class="example">"||"和"|"区别同上</div>
+					</li>
+				</ul>
+				<h2>JavaScript 流程控制语句</h2>
+				<ul class="first">
+					<li>if语句：
+						<pre class="example">
+						if(……) {
+						//代码块；
+						}
+						<pre/>
+						<div class="font">在if“(……)”运行时，会调用Boolean()函数，将表达式转换为true或者false<br/>当括号中为数字时,非"0"数都会转换为true</div>
+					</li>
+					<li>else if语句：
+						<div class="font">执行效率会比全部用if的高</div>
+						<div class="example">else if在运行到符合条件的语句时，执行语句，后面跳过不再进行判断；if会判断完所有的语句</div>
+					</li>
+					<li>switch(多重条件判断语句)语法如下：
+						<pre class="font">
+						switch(n)
+						{
+							case 1:执行代码块 1
+						 	break;
+							case 2:执行代码块 2
+						 	break;
+							default:n 与 case 1 和 case 2 不同时执行的代码
+						}
+						<pre/>
+						<pre class="example">
+					当前几个条件运行过程相同时；可以进行如下简写
+						switch(n)
+						{
+							case 1:
+							case 2:
+							case 3:执行相同代码块
+						 	break;
+							case 4:执行代码块4
+						 	break;
+							default:其他代码块
+						}
+						<pre/>
+						<pre class="example">
+							<div class="font">switch也可以进行条件判断,如下显示例子</div>
+						var result=90;
+						switch(<span class="font">true</span>){
+							case result==100:document.write("优");break;
+							case result&lt;100 && result&gt;=80:document.write("优");break;
+							case result&lt;80 && result&gt;=60:document.write("合格");break;
+							default：document.write("不合格");break;
+						}
+						<pre/>
+					</li>
+					<li><pre>
+						do{
+							//循环体
+						}while(条件语句)
+						</pre>
+						第一步：执行do里面的语句（循环体）；
+						第二步：判断条件；
+						<div class="font">先执行一次循环体，之后再判断条件，如果条件满足就继续执行循环体，否则停止循环</div>
+						<h3>扩充：break\continue(用于在循环中精确地控制代码的执行)</h3>
+						<ul class="second">
+							<li>break：终止当前循环</li>
+							<li>continue</li>
+						</ul>
+					</li>
+					<li>while循环
+					<pre>
+						while(条件语句){
+							//循环体
+						}
+						</pre>
+						<ul class="second">
+							<li>"while(){}"和"do{}while(……)"区别：前者先判断后执行，后者先执行后判断</li>
+							<li>"while()"和"for()"区别：while()中只能写条件，for()中可以写声明和判断</li>
+						</ul>
+					</li>
+					<li>for循环
+					<pre>
+						for (声明;判断; 自增或自减)
+						  {
+						  被执行的代码块
+						  }
+						</pre>
+						<div class="font">自增或自减处，i++和++i、i--和--i没区别</div>
+						<ul class="second">
+							<li>先声明变量；</li>
+							<li>判断条件；</li>
+							<li>执行循环；</li>
+							<li>自增或自减；</li>
+							<li>再判断条件(跳过声明部分)……以此循环，直到不满足条件为止。</li>
+						</ul>
+						<pre class="example">
+							<div class="font">输出等边三角形</div>
+						var n=4;
+						for(var a=0;a< n;a++){                                              *
+							for(var c=0;c< n-1;c++){                                 ***
+								document.write("& nbsp;");                  *****
+							}                                                                 *******
+							for(var b=0;b< a-1;b++){
+								document.write("*");
+							}
+							document.write("< br/>")
+						}
+						<pre/>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--页脚-->
+		<div class="footer">
+			<div class="footer_main">
+				<div class="f_text2">我也不知道这里要写什么</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>初级定位</title>
+		<link rel="stylesheet" href="../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+		<style type="text/css">
+			img{
+				margin:15px 0 15px 0;
+			}
+		</style>
+	</head>
+	<body >
+		<!--头部-->
+		<div class="head">
+			<div class="head_nav">XiaoPang</div>
+			<ul>
+				<li><a href="#">JavaScript</a></li>
+				<li><a href="#">css</a></li>
+				<li><a href="#">html</a></li>
+				<li><a href="../index.html">首页</a></li>
+			</ul>
+		</div>
+		<div class="box">
+			<div class="left">
+				<h2>初级定位:CSS三种基本定位机制：普通流、浮动、position</h2>
+				<ul class="first">
+					<li>relative
+						<ul class="second">
+							<li>相对自身（左上角）</li>
+							<li>无侵入（保留原有位置）</li>
+						</ul>
+						<div class="font">相对定位能限制绝对定位（比如谢大大举的小黑和小红打游戏的例子）</div>
+						<div class="font">相对于其正常位置进行定位，无论是否进行移动，元素仍占据原来的空间(以下纯属W3C盗图事件……假装不知道……)</div>
+						<img src="../img/relative.gif">
+					</li>
+					<li>absolute
+						<ul class="second">
+							<li>脱离文档流，不占据空间</li>
+							<li>相对于包含块定位（父容器也要有定位，才会相对父容器）</li>
+							<li>绝对定位特征
+								<div class="example">拥有绝对定位的元素可以清除浮动（absolute、fixed）；<br/>位置跟随；<br/>将元素Block化（absolute和float都能将行内元素block化）</div>
+							</li>
+						</ul>
+						<div class="font">与float共同点：包裹性；破坏性</div>
+						<div class="font">相对于第一个父元素进行定位，如果找不到则一层一层往上找，直至body层</div>
+						<img src="../img/absolute.gif">
+					</li>
+					<li>fixed
+						<ul class="second">
+							<li>相对于浏览器进行定位，元素始终停留在屏幕的某个位置上</li>
+						</ul>
+					</li>
+				</ul>
+				<h2> ❀ 好、本仙女现在要开始举个比方打个例子了（比如水平垂直居中）！</h2>
+				<ul class="first">
+					<li><pre class="example">
+					{
+						 position:absolute;
+						 top:0px;
+						 right:0px;
+						 bottom:0px;
+						 left:0px;
+						 margin:auto;
+					}
+						</pre>
+						<span class="font">可惜我们敬爱的谢大大说兼容性一般</span>
+					</li>
+					<li><pre class="example">
+					{
+						 position:absolute;
+						 left:50%;
+						 top:50%;
+						 margin-top:-~~px;/*<span class="font">此处为负值，取居中元素高度的一半</span>*/
+						 margin-left:-~~px;/*<span class="font">此处为负值，取居中元素宽度的一半</span>*/
+					}
+						</pre>
+					</li>
+				</ul>
+				<h2>插入一个z-index的用法（设置堆叠顺序）</h2>
+				<ul class="first">
+					<li>仅能在定位元素上凑效  如：position<br/>每个元素都有一个z-index值，默认为0
+						<div class="font">position：static不支持z-index</div>
+					</li>
+					<li><span class="font">若z-index发生嵌套，遵从祖先优先原则</span></li>
+					<li>在不定义z-index情况下，元素会覆盖在其他元素上，不占据空间
+						<div class="font">通常会使内容相互重叠</div>
+					</li>
+					<li>下面是几条基本的规则，来决定在一个单独的堆栈上下文里的堆栈顺序（从后向前）（堆栈上下文的根元素）
+						<ul class="second">
+							<li>定位元素（和他们的子元素）带着负数的z-index值（高的值被堆叠在低值的前面；相同值的元素按照在HTML中出现的顺序堆叠）</li>
+							<li>非定位元素（按照在HTML中出现的顺序排序）</li>
+							<li>定位元素（和他们的子元素）带着auto的z-index值（按照在HTML中出现的顺序排序</li>
+						</ul>
+						<div class="font">注 解：定位元素带有负的z-index值被在一个堆栈上下文中先排序，这意味着他们出现在所有其他元素的后面。正因如此，它使一个元素出现在自己父元素之后 成为可能，这以前通常是不可能的事。当然，这局限于它的父元素与它在同一个堆栈上下文，并且不是那个堆栈上下文的根元素。</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--页脚-->
+		<div class="footer">
+			<div class="footer_main">
+				<div class="f_text2">我也不知道这里要写什么</div>
+			</div>
+		</div>
+	</body>
+</html>

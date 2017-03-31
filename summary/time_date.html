@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>初级定位</title>
+		<link rel="stylesheet" href="../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+	</head>
+	<body >
+		<!--头部-->
+		<div class="head">
+			<div class="head_nav">XiaoPang</div>
+			<ul>
+				<li><a href="#">JavaScript</a></li>
+				<li><a href="#">css</a></li>
+				<li><a href="#">html</a></li>
+				<li><a href="../index.html">首页</a></li>
+			</ul>
+		</div>
+		<div class="box">
+			<div class="left">
+				<h2>Date( )对象：1970年1月1日零时开始经过的毫秒来保存日期</h2>
+				<ul class="first">
+					<li>var  date = new Date();  获取当前时间<div class="font">是一个构造函数
+						<div class="example">var  date = new Date(2017,2,16,18,31,00);   后台会自动调用Date.parse()</div>
+					</li>
+					<li>Date.parse():返回对应的毫秒数;参数有三种格式
+						<ul class="second">
+							<li>月/日/年 格式<br/>月-日-年</li>
+							<li>May  25,2004</li>
+							<li>Tue May 25 2004 00:00:00 DMT-070</li>
+							<div class="example">Date.parse("2/16/2017");</div>
+						</ul>
+					</li>
+					<li>Date.UTC(2011,11)
+						<ul class="second">
+							<li>月/日/年 格式<br/>月-日-年</li>
+							<li>May  25,2004</li>
+							<li>Tue May 25 2004 00:00:00 DMT-070</li>
+							<div class="example">Date.parse("2/16/2017");</div>
+						</ul>
+					</li>
+					<li>通用的方法
+						<ul class="second">
+							<li>toLocaleString():按本地格式输出</li>
+							<li>valueof():显示毫秒数</li>
+							<li>Tue May 25 2004 00:00:00 DMT-070</li>
+							<div class="example">Date.parse("2/16/2017");</div>
+						</ul>
+					</li>
+					<li>组件方法：<span class="font">有带UTC和不带的，UTC指的是没有时区偏差的日期</span>
+						<ul class="second">
+							<li>getTime()：获取当前时间毫秒数</li>
+					        <li>getFullYear()：获取4位的年份</li>
+					        <li>getMonth()： 获取月份  0-11</li>
+					        <li>getDate()：  获取日期 </li>
+					        <li>getDay()：   0='星期日'  123456
+					        	<div class="font">解决方案如下</div>
+					        	<pre class="example">
+								var Day = ["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
+								var day=Day[变量名.getDay()];
+					        	</pre>
+					        </li>
+					        <li>getHours()：  24小时制时间</li>
+					        <li>getMinutes()： 获取分钟</li>
+					        <li>getSeconds()： 获取秒钟</li>
+					        <li>getMilliseconds()： 当前毫秒数 默认为零(设置的时候)</li>
+					        <li>getTimezoneOffset()： 返回本地时间和UTC相差的分钟数</li>
+						</ul>
+					</li>
+					
+					<h2>这是一个惊心动魄的例子</h2>
+					<div class="font">显示效果如下</div>
+					<div id="time"></div>
+						<pre class="example">
+		
+						function time(){
+							    var endTime = new Date(2017,5,6);       //截止时间
+		
+							    var currentTime = new Date();           //当前时间
+		
+							    var time = (endTime-currentTime)/1000;   //相差的秒数
+							 
+							    var date  = Math.floor(time/(60*60*24));   //天数
+		
+							    var H  = checkNumber(Math.floor((time/(60*60))%24));   //小时
+		
+							    var M =  checkNumber(Math.floor((time/60)%60));    //分钟
+		
+								var S = checkNumber(Math.floor(time%60));    //秒
+		
+								var ms =  checkNumber(Math.floor((((time*1000)%1000))/10));    //毫秒
+							    
+							    var div = document.getElementById('time');   //找到ID为time的DIV
+		
+							    div.innerText = "距离高考还有"+date+"天"+H+":"+M+":"+S+":"+ms;   //给div书写内容
+						}
+							    time();//防止首次进入,显示为空白
+		
+							    setInterval(time,100);//开启定时器
+		
+						function checkNumber(num) {       
+		
+							    return  num< 10 ?"0"+num:num;
+						}    
+						</pre>
+				<div>我们来讲解一下setInterval():每隔指定时间，计算一个表达式；第一个参数有很多种，第二个参数为间隔时间（毫秒）</div>
+				</ul>
+				<ul class="first">
+					<li>表达式
+						<div class="example">setInterval("alert('你好！')",1000);</div>
+						<div class="font">此处表达式必须用双引号引起来，否则只执行一次</div>
+					</li>
+					<li>函数
+						<pre class="example">
+							setInterval("alert('你好！')",1000);
+							var i = 0;
+							function box(){
+								document.write(++i);
+							}
+						</pre>
+					</li>
+					<li>传递匿名函数
+						<ul class="second">
+							<li>
+							<pre class="example">
+							setInterval(function(){
+								document.write("12");
+							},1000);
+							</pre>
+							</li>
+							<li>
+							<pre class="example">
+							setInterval(function(){
+								box("12");
+							},1000);
+							function box(n){
+								alert(n);
+							}
+							</pre>
+							</li>
+						</ul>
+						
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--页脚-->
+		<div class="footer">
+			<div class="footer_main">
+				<div class="f_text2">我也不知道这里要写什么</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			function time(){
+				var endTime = new Date(2018,5,6);       //截止时间
+				var currentTime = new Date();           //当前时间
+				var time = (endTime-currentTime)/1000;   //相差的秒数
+				var date  = Math.floor(time/(60*60*24));   //天数
+				var H  = checkNumber(Math.floor((time/(60*60))%24));   //小时
+				var M =  checkNumber(Math.floor((time/60)%60));    //分钟
+				var S = checkNumber(Math.floor(time%60));    //秒
+				var ms =  checkNumber(Math.floor((((time*1000)%1000))/10));    //毫秒		
+				var div = document.getElementById('time');   //找到ID为time的DIV
+				div.innerText = "距离高考还有"+date+"天"+H+":"+M+":"+S+":"+ms;   //给div书写内容
+			}
+				time();//防止首次进入,显示为空白
+				setInterval(time,10);//开启定时器
+			function checkNumber(num) {    
+				return  num< 10 ?"0"+num:num;
+			}    
+		</script>
+	</body>
+</html>

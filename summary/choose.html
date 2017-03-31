@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>JavaScript基础</title>
+		<link rel="stylesheet" href="../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+	</head>
+	<body >
+		<!--头部-->
+		<div class="head">
+			<div class="head_nav">XiaoPang</div>
+			<ul>
+				<li><a href="#">JavaScript</a></li>
+				<li><a href="#">css</a></li>
+				<li><a href="#">html</a></li>
+				<li><a href="../index.html">首页</a></li>
+			</ul>
+		</div>
+		<div class="box">
+			<div class="left">
+				<h2>CSS选择器（加强版）</h2>
+				<ul class="first">
+					<li>属性选择器
+						<ul class="second">
+							<li>[attr*=val] ：元素用attr表示的值中包含用val指定的字符
+								<div class="example">例：a[src*="abc"] 	选择其 src 属性中包含 “abc” 子串的每个&lt;a&gt;元素。</div>
+								<div class="example2">a[href*="e3.org"] 选择href属性中包含“e3.org”的&lt;a&gt;元素。</div>
+							</li>
+							<li>[attr^=val] ：开头字符为val的元素
+								<div class="example">例：a[src^="abc"] 	选择其 src 属性中开头为“abc” 字符串开头的每个&lt;a&gt;元素。</div>
+								<div class="example2">a[href^="e3.org"] 选择href属性中以“e3.org”字符串开头的&lt;a&gt;元素。</div>
+							</li>
+							<li>[attr$=val] ：结尾字符为val的元素 [属性$=尾字符]
+								<div class="example">例：若id="section1-2-1" 则[id$=\-1]<span class="font">（因为连接符‘-’前必须加上‘\’）</span></div>
+							</li>
+							<li>[attr|=val] ：attr属性开头字符为val的元素</li>
+						</ul>
+					</li>
+					<li>伪类选择器
+						<ul class="second">
+							<li>first-child ：属于父元素的第一个元素<div class="example">例：ul的第一个子元素 ul>li:first-child<span class="font">应先找到所有子元素，再从子元素中选第一个</span></div></li>
+							<li>last-child ：属于父元素的最后一个元素<br/><span class="font">用法同上</span></li>
+						</ul>
+					</li>
+					<li>锚伪类
+						<ul class="second">
+							<li>link：未访问</li>
+							<li>active ：选择活动链接</li>
+							<li>visited ：已被访问</li>
+							<li>hover ：鼠标悬浮<span class="font">（不仅适用于链接）</span></li>
+						</ul>
+					</li>
+					<li>伪元素
+						<ul class="second">
+							<li>first-line：向某个元素的第一行文字使用</li>
+							<li>first-letter：首字母或第一个字</li>
+							<li>before：再某个元素之前插入一些内容</li>
+							<li>after：在某个元素之前插入一些内容</li>
+						</ul>
+					</li>
+				</ul>
+				<h2>在这里，我们重点来总结一下：after和：before这两个强大的伪元素</h2>
+				<ul class="first">
+					<li><span class="font">这是个重点！清除浮动！（解决父元素塌陷，对兄弟元素不起作用，相当于添加空标签）</span>
+						<pre class="example">
+						元素::after{
+						 	content:"";
+						 	height:0px;
+						 	visibility:hidden;
+						 	display:block;
+						 	clear:both;
+						 }
+						 元素{
+						 	zoom:1;/*<span class="font">此代码解决IE7不兼容问题</span>*/
+						 }
+						 此处元素是指父级元素
+						</pre>
+						<span class="font">属性重置编号 counter-reset：计数器名称；</span>
+					</li>
+					<li>插入内容
+						<div class="example">例：在h2前插入“title”</div>
+						<pre class="example">
+						h2::before{
+								content:"title";
+						}
+						</pre>
+					</li>
+					<li>插入图片
+						<div class="example">例：在h2前插入图片1.jpg</div>
+						<pre class="example">
+						h2::before{
+								content:url(1.jpg);
+						}
+						</pre>
+					</li>
+					<li>调用当前元素属性
+						<div class="example">例：p标签包含属性style="width:200px;"</div>
+						<pre class="example">
+						 p::after{
+							content:attr(style);
+						 }
+						 显示：你好！width:200px
+						</pre>
+					</li>
+					<li>添加连续编号（同时可以对显示的样式进行调整，如本页面的编号，即文字大小、背景、颜色等都可以进行调试）
+						<pre class="example">
+						 元素:：before{
+						 	content:counter (计数器名称)；/还可以 content:'第' 计数器名称 '章'；
+						 }
+						 元素{
+						 	counter-increment:content 计数器名称；
+						 }
+						 <span class="font">中编号中嵌入大编号</span>
+						 元素::before{
+						 	content:counter(大编号的计数器名称)'-'counter(中编号)；
+						 }
+						</pre>
+						<span class="font">属性重置编号 counter-reset：计数器名称；</span>
+					</li>
+					<li>可以与伪类连用
+						<pre class="example">
+						 元素:hover:：before{
+						 	content:"";
+						 }
+						</pre>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+		<!--页脚-->
+		<div class="footer">
+			<div class="footer_main">
+				<div class="f_text2">我也不知道这里要写什么</div>
+			</div>
+		</div>
+	</body>
+</html>

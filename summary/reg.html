@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>正则表达式</title>
+		<link rel="stylesheet" href="../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+	</head>
+	<body >
+		<!--头部-->
+		<div class="head">
+			<div class="head_nav">XiaoPang</div>
+			<ul>
+				<li><a href="#">JavaScript</a></li>
+				<li><a href="#">css</a></li>
+				<li><a href="#">html</a></li>
+				<li><a href="../index.html">首页</a></li>
+			</ul>
+		</div>
+		<div class="box">
+			<div class="left">
+				<h2>JavaScript 正则表达式(是一种文本模式)</h2>
+				<div class="font">包括普通字符和特殊字符<br/>是用单个字符串匹配一系列某个句法规则的字符串</div>
+				<ul class="first">
+					<li>验证（测试字符串的某个模式）。
+						<div class="example">例如，可以对一个输入字符串进行测试，看在该字符串是否存在一个电话号码模式或一个信用卡号码模式。这称为数据有效性验证。</div> 
+					</li>
+					<li>替换文本。
+						<div class="example">可以在文档中使用一个正则表达式来标识特定文字，然后可以全部将其删除，或者替换为别的文字。</div>
+					</li>
+					<li>查找（根据模式匹配从字符串中提取一个子字符串）。
+						<div class="example">可以用来在文本或输入字段中查找特定文字。</div>
+					</li>
+				</ul>
+		
+				<h4>接下来就是详解啦~~</h4>
+				<ul class="first">
+					<li>声明方式
+						<ul class="second">
+							<li>字面量：
+								<span class="font">var reg = /\bis\b/g;</span>
+								<div class="font">"/……/"内表示匹配的内容</div>
+							</li>
+							<li>构造函数：
+								<span class="font">var reg = new RegExp("\\bis\\b","g");</span>
+								<div class="font">"\b"前面的"\"表示转义</div>
+							</li>
+							
+						</ul>
+					</li>
+					<li>修饰符
+						<ul class="second">
+							<li>i:忽略大小写</li>
+							<li>g:全局匹配</li>
+							<li>m:多行搜索</li>
+						</ul>
+					</li>
+					<li>预定义类
+						<ul class="second">
+							<li>\d：[0-9]数字字符</li>
+							<li>\D：[0-9]非数字字符</li>
+							<li>\s：空白符</li>
+							<li>\S：非空白符</li>
+							<li>\w：单词字符</li>
+							<li>\W：非单词字符</li>
+							<li>. ：除了回车和换行之外的所有字符</li>
+						</ul>
+					</li>
+					<li>边界
+						<ul class="second">
+							<li>\b：单词边界</li>
+							<li>\D：非单词边界</li>
+							<li>^ ：以xxx开头<span class="font">在分组里代表取反</span></li>
+							<li>$ ：以xxx结尾</li>
+							<div class="example">/^abc$/<br/>此时只有“abc”可以匹配到</div>
+						</ul>
+					</li>
+					<li>或<span class="font">(使用“|”)</span>
+						<div class="font">如：a(b|c)d，即abd或者acd</div>
+					</li>
+					<li>元字符
+						<ul class="second">
+							<li>原意文本字符</li>
+							<li>元字符：在正则表达式中有特殊含义的非字母字符</li>
+						</ul>
+					</li>
+					<li>量词
+						<div class="example">匹配最相近的，如goods{3}，则匹配s三次<br/>若写为（goods）{3}，则匹配goods三次</div>
+						<ul class="second">
+							<li>？：出现0次或一次</li>
+							<li>+ ：出现1次或多次</li>
+							<li>* ：以xxx开头<span class="font">（即任意次）</span></li>
+							<li>{n} ：出现n次</li>
+							<li>{n，m} ：出现n次到m次</li>
+							<li>{n，} ：至少出现n次
+								<div class="example">\d{4}</div>
+							</li>
+							<div class="font">贪婪模式：尽可能多的匹配</div>
+							<div class="font">非贪婪模式：一旦匹配成功就不再继续匹配（尽可能少的匹配），在两次后面加个“？”号</div>
+						</ul>
+					</li>
+					<li>字符类
+						<div class="example">匹配a或b或c：/[abc]/g</div>
+						<ul class="second">
+							<li>闭区间表示一个范围
+								<div class="example">如：[3-9]表示3,4,5,6,7,8,9 <span class="font">注意“-”只有在范围之间表示区间</span><br/>
+									[a-d]表示a,b,c,d 还可以连缀表示，如：[3-9a-d]
+								</div>
+							</li>
+							<li>取反：在类的开头加上“^”：如：[^abc]表示出了a,b,c</li>
+						</ul>
+					</li>
+					<li>前瞻<span class="font">注意：在js中，不支持后顾</span>
+						<ul class="second">
+							<li>正向前瞻(如下：即以xiaohei开头，xiaohei的后面必须紧跟有xiaohong)
+								<pre class="example">
+								reg = /(xiaohei)(?=xiaohong)/;
+								若："xiaoheixiaohong".replace(reg,"^-^")
+								<span class="font">=>^-^xiaohong</span>
+								若："xiaoheixiaobai".replace(reg,"^-^")
+								<span class="font">此时匹配不到=>xiaoheixiaobai</span>
+								若："xiaoheixiaohong2".replace(reg,"^-^")
+								<span class="font">=>^-^xiaohong2</span>
+								</pre>
+							</li>
+							<li>反向前瞻：/(xiaohei)(?!xiaohong)/
+								<div class="font">以“xiaobai”为开头，后面紧跟的不是“xiaohong”</div>
+							</li>
+						</ul>
+					</li>
+					<h4>接下来这是个很重要的玩意！顺便分享一个很神奇的用法//从左到右，如：$1，$2，$3……</h4>
+					<li>分组：用“（）”表示
+						<pre class="example">
+							var reg = /^<span class="font">(</span>\d{4}<span class="font">)</span>[\-]<span class="font">(</span>1[0-2]|0[1-9]<span class="font">)</span>[\-]<span class="font">(</span>[0-2]\d|3[0-1]<span class="font">)</span>$/;
+							var date = "2017-04-05";
+							alert(date.replace(reg,"$1-$2-$3"));    // <span class="font">=>输出：2017-04-05</span>
+							alert(date.replace(reg,"$2-$3-$1"));    // <span class="font">=>输出：04-05-2017</span>
+							<span class="font">组用“$”代替</span>
+						</pre>
+						<div class="font">忽略分组，（不想要某些分组），只需要在分组前加上“？：”即可，但是要注意的是必须加在括号里
+					</li>
+					<li>对象属性
+						<ul class="second">
+							<li>index：返回字符位置（初始为-1）</li>
+							<li>lastIndex：返回字符位置，它是被查找字符串中下一次成功匹配的开始位置</li>
+							<li>lastMatch：返回任何正则表达式搜索过程中的最后匹配的字符。只读。</li>
+							<li>lastParen：如果有的话，返回任何正则表达式查找过程中最后括的子匹配。只读</li>
+							<li>leftContext：返回被查找的字符串中从字符串开始位置到最后匹配之前的位置之间的字符）</li>
+							<li>rightContext：返回被搜索的字符串中从最后一个匹配位置开始到字符串结尾之间的字符</li>
+							<li>source：正则表达式的文本字符串</li>
+						</ul>
+					</li>
+				</ul>
+				<h3>最后,有三个重点压轴</h3>
+				<ul class="first">
+					<li>RegExp.prototype.test(str)：用于测试字符串中参数是否存在匹配正则表达式模式的字符串（是否匹配规则）
+						<pre class="example">
+							var reg = /1[34578]\d{9}/;
+							document.write(reg.test("188"));     //输出false
+							document.write(reg.test("18868343273"));       //输出true
+						</pre>
+					</li>
+					<li>RegExp.prototype.exec(str)：使用正则表达式模式对字符串进行搜索，并将更新全局RegExp对象的属性以反映匹配结果
+						<div class="font">若没有匹配的文本则返回null，否则返回一个结果数组<br/>
+							---index：声明匹配文本的第一个字符的位置<br/>
+							---input：存放被检索的字符串String（原字符串）<br/>
+							注意：index和input都是属性，不是行为方法
+						</div>
+					</li>
+					<li>replace（共有三种方法，在这里我们在主要介绍一下function函数）function函数还会在每一次匹配替换的时候被调用
+						<ul class="second">
+						     四个参数
+							<li>匹配字符串</li>
+							<li>正则表达式分组内容，没有分组则没有该参数</li>
+							<li>匹配项在字符串中的index</li>
+							<li>原字符串</li>
+							<pre class="example">
+								var str = "1a2b3c4d" ;
+								var reg = /(\d)/g;
+								var value = str.replace(reg,function(str,g,index,val){
+									return parseInt(g)+1;
+								});
+								document.write(value + "< br/>");
+							=>此时输出：2a3b4c5d
+								<div class="font">
+								若此时改为两个分组，则如下所示
+								var reg = /(\d)([a-z])/g;
+								var value = str.replace(reg,function(str,g1,g2,index,val){
+									return parseInt(g1)+1+(g2);
+								});
+								document.write(value + "< br/>");
+							=>此时输出：2a3b4c5d
+								</div>
+							</pre>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--页脚-->
+		<div class="footer">
+			<div class="footer_main">
+				<div class="f_text2">我也不知道这里要写什么</div>
+			</div>
+		</div>
+	</body>
+</html>

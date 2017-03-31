@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>对象</title>
+		<link rel="stylesheet" href="../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+	</head>
+	<body >
+		<!--头部-->
+		<div class="head">
+			<div class="head_nav">XiaoPang</div>
+			<ul>
+				<li><a href="#">JavaScript</a></li>
+				<li><a href="#">css</a></li>
+				<li><a href="#">html</a></li>
+				<li><a href="../index.html">首页</a></li>
+			</ul>
+		</div>
+		<div class="box">
+			<div class="left">
+				<h2>了解对象</h2>
+				<ul class="first">
+					<li>对象中包含一系列属性，这些属性是无序的。每个属性都有一个字符串key和对应的value。
+						<pre class="example">
+							var obj = {x : 1, y : 2};
+							obj.x; 		// 1
+							obj.y; 		// 2
+						</pre>
+					</li>
+					<li>关于对象的key
+						<div class="font">无论传入的是数字还是对象都会自动调用toString方法转换成字符串</div>
+						<pre class="example">
+							var obj = {};
+							obj[1] = 1;
+							obj['1'] = 2;
+							obj; 	     // Object {1: 2}
+		
+							obj[{}] = true;
+							obj[{x : 1}] = true;
+							obj;  	    // Object {1: 2, [object Object]: true}
+						</pre>
+					</li>
+				</ul>
+				<h2>创建对象</h2>
+				<ul class="first">
+					<li>字面量创建</li>
+					<li>new/原型链创建
+						<pre class="example">
+							function foo(){}
+							foo.prototype.z = 3;
+							<span class="font">//prototype只是“指向”原型链，本身是一个对象
+							第一个属性：constructor指向原型函数
+							第二个：proto 通过原型链（不是原型）返回它所连接的原型</span>
+							var obj =new foo();
+							obj.y = 2;
+							obj.x = 1;
+		
+							obj.x;		 // 1
+							obj.y; 		// 2
+							obj.z;		 // 3
+							typeof obj.toString;     		  // function
+							'z' in obj;            		  	//输出：true
+							<span class="font">//检测当前对象有没有某属性 ,首先从当前对象中去找是否有属性“z”，若没有找到则会通过原型链在原型上去找，
+							有则返回true，无则返回false</span>
+							obj.hasOwnProperty('z');		 //hasOwnProperty（attr）判断当前对象有没有某属性 输出：false
+							foo.prototype.hasOwnProperty('z');  //此时输出true
+		
+							obj.z = 5;
+							obj.hasOwnProperty('z'); 			// true
+							foo.prototype.z; 					// 此时输出仍然为 3
+							obj.z; 							// 5
+		
+							obj.z = undefined;
+							obj.z; 							// undefined
+		
+							delete obj.z;						 // true
+							obj.z; 							// 3  （会一层一层往上找）
+		
+							delete obj.z;					 	/ true
+							obj.z;			 				// still 3!!!
+						</pre>
+					</li>
+					<li>Object.create()  静态方法
+						<pre class="example">
+							var obj = Object.create({x : 1});
+							obj.x ;						// 1
+							typeof obj.toString 			// "function"
+							obj.hasOwnProperty('x');		// false
+							
+							var obj = Object.create(null);
+							obj.toString; 					// undefined
+						</pre>
+					</li>
+				</ul>
+				<h2>读写对象属性</h2>
+				<ul class="first">
+					<li>属性读写异常
+						<pre class="example">
+							var obj = {x : 1};
+							obj.y; 			// undefined
+							var yz = obj.y.z; 			// TypeError: Cannot read property 'z' of undefined
+							obj.y.z = 2; 			// TypeError: Cannot set property 'z' of undefined
+						</pre>
+					</li>
+					<li>属性删除
+						<pre class="example">
+							// 获取对象指定属性的标签对象
+							// 属性删除
+							var person = {age:28,title:"nihao"};
+							delete person.age;    					 //true
+							delete person["title"]; 	  				 //true
+							person.age;   				 			//undefined
+							delete Object.prototype;  				//false
+							// 因为configurable默认为false；所以Object.prototype不能删除
+							var descriptor = Object.getOwnPropertyDescriptor(Object,"prototype"); 				 
+							//getOwnPropertyDescriptor:获取对象指定属性的标签对象,标签对象下有如下几个重要的属性
+							<span class="font">
+							// configurable：false   是否可操作
+							// enumerable:false  是否枚举      可枚举的能被for(in)遍历出来，不能枚举的不能遍历出来
+							// value： object 属性值
+							// writable:  false是否可写
+							</span>
+						</pre>
+					</li>
+					<li>属性检测
+						<pre class="example">
+							// 属性检测
+							var cat = new Object();
+							cat.legs=4;
+							cat.age=4;
+							console.log(cat.propertyIsEnumerable("legs"));    //true
+							console.log(cat.propertyIsEnumerable("toString"));    //false
+							<span class="font">
+							// 检测对象是否可枚举
+							// 通过“ . ”来创建的属性都返回true 
+							// 给对象创造属性 Object.defineProperty()
+							//第一个参数：当前对象
+							//第二个参数：要创建的属性名称
+							//第三个参数：字面量的Object对象
+							</span>
+							var cat = new Object();
+								cat.age=4;
+							Object.defineProperty(cat,  "name",{
+								enumerable:false,   		 //设置不可枚举
+								value:"哆啦A梦"
+							});
+							console.log(cat.name);    		//此处应该 .name  ,因为value给的是属性值，name才是属性
+							for(attr in cat){		
+								console.log(attr);   		 		//只输出age
+							}
+							// ps:只要还通过Object.defineProperty创建的属性，name该属性的属性标签默认都为false
+		
+							console.log( Object.getOwnPropertyDescriptor(cat,"name"));  	//返回一个对象
+		
+							<span class="font">注意：多个添加，要把"y"改成ies  
+							Object.defineProperties(当前对象，{属性名称：{标签对象}})</span>
+							Object.defineProperties(cat, {          
+								"name":{value:"哆啦A梦"},
+								"home":{value:18,enumerable:true}
+							});
+							for(attr in cat){		
+								console.log(attr);   		//age	 home
+							}
+						</pre>
+					</li>
+					<li>属性枚举
+						<pre class="example">
+							// 属性枚举
+							var o = {x:1,y:2,z:3};
+							console.log("toString" in o);			//true
+							console.log(o.propertyIsEnumerable("toString"));  		  //检测对象是否可枚举,false
+							var key;
+							for(key in o){
+								console.log(key); 			 	 //x,y,z
+							}
+		
+							var obj = Object.create(o);
+							obj.a=4;
+							var key;
+							for(key in obj){
+								console.log(key); 				 //a,x,y,z
+							}
+		
+		
+							var obj = Object.create(o);
+							obj.a=4;
+							var key;
+							for(key in obj){
+								if(obj.hasOwnProperty(key)){
+								console.log(key);  				  	//a
+								}
+							}
+						</pre>
+					</li>
+				</ul>
+				<h2>getter setter方法</h2>
+				<ul class="first">
+					<li>另一种读写的方式getter/setter
+					<pre class="example">
+						var man = {
+							name:"xiaohei",
+							grade :18,
+							get age(){
+								return new Date().getFullYear()-2000;
+							},
+							set age(val){
+								console.log("今年我才" + val);
+							}
+						}
+						console.log(man.age);   		//17
+						man.age = 5;   				//今年我才5,相当于调用了函数,(即赋值的时候间接调用了函数)
+						console.log(man.age);   		//17
+		
+						
+						另外一个例子
+						//set设置属性值，get得到属性值
+						var man = {
+							myName:"xiaohei",       		//实际的属性
+							grade :18,
+							get name(){     			//name操作的属性名
+								return this.myName;
+							},
+							set name(val){
+								this.myName = val;
+							}
+						}
+						console.log(man.name); 			  //xiaohei
+						man.name = "大白";   
+						console.log(man.name);  			 //大白
+					</pre>	
+					</li>
+					<li>get/set与原型链
+					<pre class="example">
+						function Foo(){}
+						var obj = new Foo();    //创建对象
+						<span class="font">通过Object.defineProperty给Foo.prototype（原型）添加属性</span> 
+						Object.defineProperty(obj,"z",{
+							configurable:true,writable:true,value:70
+						})
+						console.log(obj.z);     		//80   
+						obj.z=80;
+						console.log(obj.z);   			//80
+						<s-pan class="font">writable:true必须设置，否则输出为70（返回的对象不能修改它的值）</span> 
+						console.log(obj.hasOwnProperty("z"));    //true
+		
+						function Person(){}
+						Person.prototype.y=100;
+						var obj = new Person();
+						obj.name = "xiaohei";
+						Object.defineProperty(obj,"type",{
+							configurable:true,
+							writable:true,
+							enumerable:false,
+							value:"Object"
+						})
+						console.log(Person.prototype.propertyIsEnumerable("y"));
+						console.log(Object.keys(obj));   <span class="font">//获取当前对象下课枚举的属性或行为，不会去原型链上去找</span>
+						//返回的是一个结果数组
+					</pre>
+					</li>
+					<li>对象标签(proto\class\extensible)
+						<pre class="example">
+							var toString = Object.prototype.toString;
+							function getClass(obj){//通过call或者apply实现对象冒充（改变函数的一个执行对象）
+								return  toString.call(obj).slice(8,-1);   //返回处理过的构造函数的名称
+							}
+							console.log(getClass(null));			//Null
+							console.log(getClass(undefined));		//Undefined
+							console.log(getClass(11));    			//Number
+							console.log(getClass(new Number()));    //Number
+							console.log(getClass(new Boolean()));   //Boolean
+							console.log(getClass("nihap")); 		//String
+							console.log(getClass(true)); 		    //Boolean
+						</pre>
+						<div class="font">
+							判断该对象是否能够修改现有属性，是否能添加新属性，不能的话返回true，否则返回false
+							<div class="example">Object.isSealed(object);</div> 
+							判断该对象是否能够修改现有属性和值，是否能添加新属性，不能的话返回true，否则返回false
+							<div class="example"> Object.isFrozen(object);</div> 
+							判断该对象是否可向对象添加新属性,可以则返回false,被冻结则返回true
+							<div class="example">Object.isExtensible(object);</div>
+							返回属于自己的属性和行为
+							<div class="example">Object.getOwnPropertyNames(object);</div>
+						</div>
+						<pre class="example">
+						<span class="font">// 阻止修改现有属性的特性和值，并阻止添加新属性  Object.freeze()   冻结对象</span>
+							var obj = new Object();
+							obj.name = "xiaohei";
+							obj.age = 18;
+							// 进行阻止
+							Object.freeze(obj);       				//	该句存在时，console.log输出undefined，否则输出“女”
+						<span class="font">// 下面添加新属性无效</span>
+							obj.sex = "女";
+							console.log(obj.sex);
+							Object.defineProperty(obj,"age",{writable:false});
+							obj.age = 28;
+						<span class="font">// 下面修改属性无效</span>
+							console.log(obj.age);    //输出18
+		
+						<span class="font">//阻止向对象添加新属性Object.preventExtensions(object)   阻止扩展</span>
+							var obj = new Object();
+							obj.name = "xiaohei";
+							obj.age = 18;
+							// Object.preventExtensions(obj);
+							Object.defineProperty(obj,"sex",{value:"男"});
+							obj.age = 100;
+							console.log(obj.age);
+							console.log(obj.sex);
+		
+						<span class="font">// 阻止修改现有属性的特性，并阻止添加新属性Object.seal()  密封</span>
+							var obj = new Object();
+							obj.name = "xiaohei";
+							obj.age = 18;
+							Object.seal(obj);
+							obj.age=25;
+							obj.sex="女";
+							// obj = {
+							// 	sex:"女"
+							// }
+							console.log(obj.age);
+							console.log(obj.sex);
+						<h3>综上所述，综合的实例我们来一个</h3>
+							var obj = new Object();
+							obj.name = "xiaohei";
+							// Object.freeze(obj);     			 //此时返回true、true、false；若此句不加则返回false、false、true
+							// Object.seal(obj);               		 	 //此时返回true、false、false、
+							Object.preventExtensions(obj);               //此时返回false、false、false
+							console.log("isSealed:" + Object.isSealed(obj));
+							console.log("isFrozen:" + Object.isFrozen(obj));
+							console.log("isExtensible:" + Object.isExtensible(obj));
+						</pre>
+					</li>
+					<li>JSON   序列化、反序列化    原生的js对象
+						<ul class="second">
+							<li>序列化：把json对象转化为字符串</li>
+							<li>反序列化：把json字符串转化为对象</li>
+						</ul>
+						<pre class="example">
+							var goods = {
+								'fruit':[
+									{
+										name:"凤梨",
+										price:6.6,
+										brand:"老板牌"
+									},
+									{
+										name:"凤梨",
+										price:6.6,
+										brand:"老板牌"
+									},
+									{
+										name:"凤梨",
+										price:6.6,
+										brand:"老板牌"
+									}
+								],
+								date:new Date()
+							}
+							// 序列化
+							var result = JSON.stringify(goods);    //JSON字符串
+							console.log(result);
+							//输出：{"fruit":[{"name":"凤梨","price":6.6,"brand":"老板牌"},
+							{"name":"凤梨","price":6.6,"brand":"老板牌"},
+							{"name":"凤梨","price":6.6,"brand":"老板牌"}],
+							"date":"2017-03-23T08:36:33.543Z"}
+							console.log(typeof result);   			//string
+							// 反序列化
+							console.log(JSON.parse(result));
+							console.log(goods.fruit[0]); 
+							console.log(goods.fruit[0].price);  			 //6.6
+						</pre>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--页脚-->
+		<div class="footer">
+			<div class="footer_main">
+				<div class="f_text2">我也不知道这里要写什么</div>
+			</div>
+		</div>
+	</body>
+</html>

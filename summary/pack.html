@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>基本包装类型</title>
+		<link rel="stylesheet" href="../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+	</head>
+	<body >
+		<!--头部-->
+		<div class="head">
+			<div class="head_nav">XiaoPang</div>
+			<ul>
+				<li><a href="#">JavaScript</a></li>
+				<li><a href="#">css</a></li>
+				<li><a href="#">html</a></li>
+				<li><a href="../index.html">首页</a></li>
+			</ul>
+		</div>
+		<div class="box">
+			<div class="left">
+				<h2>基本包装类型</h2>
+				<ul class="first">
+					<li>基本包装类型概述
+						<div class="example">var box= new String("Hello")； //通过包装类型构建（构造函数）</div>
+						<div class="font">该box2可以添加属性和方法，只有对象才会调用方法</div>
+					</li>
+					<li>三个特殊引用类型
+						<ul class="second">
+							<li>Boolean：无特殊的属性和方法</li>
+							<li>Number
+								<div>toFixed() 保留几位小数，并转为字符串类型</div>
+								<pre class="example">
+									var num = 10 ;
+									alert (num.toFixed(5))；      //10.00000
+								</pre>
+								<div>toExponential() 将数字以指数形式表示，保留几位小数，并转化为字符串类型</div>
+								<pre class="example">
+									var num = 125615;
+									alert(num.toExponential(4));   //1.2562e+5
+								</pre>
+								<div>toPrecision() 指定数形式或指数形式，保留几位有效数字</div>
+							</li>
+							<li>String: 包含三个属性，和大量的内置方法
+								<div>length：会识别空格</div>
+								<pre class="example">
+									var num = “1 0” ;
+									alert (num.length)；           //3
+								</pre>
+								<div>字符方法  charAt(n):返回指定索引下标的字符</div>
+								<pre class="example">
+									var num = "abcdefg";
+									alert(num.charAt(4))；    //e
+								</pre>
+								<div>charCodeAt(n):以Unicode编码返回索引下标所指字符</div>
+								<div>String.fromCharCode():fromCharCode() 可接受一个指定的 Unicode 值，然后返回一个字符串。</div>
+								<pre class="example">
+									alert(String.fromCharCode(97));   //a
+									0-9:48~57
+									a-z:97~122
+									A-Z:65~90
+								</pre>
+							</li>
+						</ul>
+					</li>
+					
+					<li>字符串的各种方法
+						<ul class="second">
+							<li>concat(str1,str2)方法：字符串拼接，返回新字符串
+								<pre class="example">
+									var str = "abc";
+									var str2 = "def";
+									alert(str.concat(str2));          //abcdef
+									alert(str.concat(str,str2));        //abcabcdef
+								</pre>
+							</li>
+							<li>slice(n,m)方法：返回字符串片段，前包后不包
+								<pre class="example">
+								var str = "abc";
+								alert(str.slice(1,2));         //b
+								</pre>
+							</li>
+							<li>substring(n,m)方法：返回对象中指定位置的字符串，前包后不包
+								<pre class="example">
+								var str = "abc";
+								var str2 = "def";
+								alert(str.substring(1,2));         //b
+								</pre>
+							</li>
+							<li>substr(n,m)方法：返回一个位置开始的指定长度，前包后不包
+								<pre class="example">
+								var str = "abc";
+								var str2 = "def";
+								alert(str.substring(1,2));         //b
+								</pre>
+							</li>
+							<li>indexOf(str,n)方法：返回String对象内第一次出现子字符串的字符位置，n表示开始的位置。
+								<pre class="example">
+									var str = "lastIndexOf";
+									alert(str.indexOf("x",5));         //9
+									<span class="font">从5开始到最后一位范围内找第一次出现的位置</span>
+								</pre>
+							</li>
+							<li>lastIndexOf(str,n)方法：从n开始搜索的最后一个str，并返回搜索的索引值，没找到则返回-1
+								<pre class="example">
+									var str = "lastIndexOf";
+									alert(str.lastIndexOf("x",5));       //3
+									<span class="font">“5”的意思是检索0-5位置的字符，即从0开始到5找出最后一个“x”的位置</span>
+								</pre>
+							</li>
+							<li>split方法：将字符串拆分成数组返回
+								<pre class="example">
+									var str = "1,2,3,4,5";
+									var goods = str.split(/,/);      //["1","2","3","4","5"]
+								</pre>
+							</li>
+							<li>match方法：使用正则表达式模式对字符串执行查找，并将结果作为数组返回，若没有匹配到，则返回null
+								<pre class="example">
+									var reg = /[a-z]/gi;
+									var val = "canJK154n56p";  
+									console.log(val.match(reg));
+									=>["c","a","n","J","K","n","p"]    
+								</pre>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--页脚-->
+		<div class="footer">
+			<div class="footer_main">
+				<div class="f_text2">我也不知道这里要写什么</div>
+			</div>
+		</div>
+	</body>
+</html>

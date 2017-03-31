@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>function函数深入</title>
+		<link rel="stylesheet" href="../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+	</head>
+	<body >
+		<!--头部-->
+		<div class="head">
+			<div class="head_nav">XiaoPang</div>
+			<ul>
+				<li><a href="#">JavaScript</a></li>
+				<li><a href="#">css</a></li>
+				<li><a href="#">html</a></li>
+				<li><a href="../index.html">首页</a></li>
+			</ul>
+		</div>
+		<div class="box">
+			<div class="left">
+				<h2>function类型</h2>
+				<ul class="first">
+					<li>具有三种声明方式（普通函数声明和匿名函数声明之前的章节有写），现在我们补充第三种：使用 Function 构造函数
+						<div class="example">var box= new Function('num1', 'num2' ,'return num1 + num2');</div>
+						<div class="font">这种语法会导致解析两次代码（第一次解析常规 ECMAScript 代码，第二次是解析传入构造函数中的字符串）,因此我们不推荐</div>
+					</li>
+					<li>作为值的函数(函数本身就是变量，所以可以作为值来使用)
+						<ul class="second">
+							<li>可以像传递参数一样把一个函数传递给另外一个函数（注：但这不是一个传递函数）
+								<pre class="example">
+									function box(sum,num){
+										return sum(num); 
+									}
+									function sum(num){
+										return 10+sum; 
+									}
+									var result = box(sum,10);    <span class="font">//函数作为参数进行传递</span>
+									document.write(result);
+									=>输出结果为20
+								</pre>
+							</li>
+							<li>可以将一个函数作为另一个函数的结果返回
+								<pre class="example">
+									function box(){
+										return function(){
+											alert(110);
+										}
+									}
+									var result = box();     <span class="font">通过调用result来调用这个函数</span>
+									result();
+									=>输出结果为110
+								</pre>
+							</li>
+						</ul>
+					</li>
+					
+					<li>函数内部属性
+						<div class="font">arguments 和 this</div>
+						<ul class="second">
+							<li>arguments:除了之前所提到的保存函数参数等功能，还有一哥callee属性，该属性是一个指针，指向拥有这个 arguments 对象的函数。
+								<pre class="example">
+									function box(num) {
+										if (num <= 1) {
+										return 1;
+										} else {
+											return num * arguments.callee(num-1);   <span class="font">//使用 callee 来执行自身</span>
+										}
+									}
+								<div class="font">对于阶乘函数一般要用到递归算法，所以函数内部一定会调用自身；如果函数名不改变是没有问题的，<br/>但一旦改变函数名，内部的自身调用需要逐一修改。为了解决这个问题，我们可以使用 arguments.callee 来代替</div>
+								</pre>
+							</li>
+							<li>this:引用的是函数据以执行操作的对象，或者说函数调用语句所处的那个作用域。<br/><span class="font">PS：当在全局作用域中调用函数时，this 对象引用的就是 window。</span>
+								<pre class="example">
+								window.color = "红色的";
+								document.write(this.color);			//打印全局
+								var box={
+								  	color:"蓝色的",
+								  	box1:function(){
+								  	document.write(this.color);  //代表box对象
+								  	}
+								  }
+								  box.box1();       //输出：红色的蓝色的
+								</pre>
+							</li>
+						</ul>
+					</li>
+					<li>函数属性和方法:每个函数都包含两个属性： length 和 prototype。
+						<ul class="second">
+							<li>length:表示函数希望接收的命名参数的个数
+								<pre class="example">
+								function box(name, age) {
+									alert(name + age);
+								}
+								alert(box.length);
+								=> 输出为2
+								</pre>
+							</li>
+							<li>prototype:它是保存所有实例方法的真正所在，也就是原型<br/>而 prototype 下有两个方法：apply()和 call()，每个函数都包含这两个非继承而来的方法。这两个方法的用途都在特定的作用域中调用函数，实际上等于设置函数体内 this 对象的值。
+								<div class="font">首先我们先扩展一个原型链的用法</div>
+								<pre class="font">
+									function getMax(){
+										var max = this[0];
+										for(var i=0 ; i< this.length;i++){
+											if(max< this[i]){
+												max = this[i];
+											}
+										}
+										return max;
+									}
+									Array.prototype.getMax(代表新建的函数名) = getMax(与函数名称getMax相同);
+									var arr[1,15,52,65];
+									alert(arr.getMax());
+									=> 输出：65
+								</pre>
+								<div class="example">这里是call和apply的用法举例</div>
+								<pre class="example">
+									function box(num1, num2) {
+										return num1 + num2;	//原函数
+									}
+									function sayBox(num1, num2) {
+										return box.apply(this, [num1, num2]);	//this 表示作用域，这里是 window，[]表示 box 所需要的参数
+									     = return box.call(this,num1,num2);  //通过call方法拿到box函数的内容
+									}
+									function sayBox2(num1, num2) {
+										return box.apply(this, arguments);	//arguments 对象表示 box 所需要的参数
+									}
+									alert(sayBox(10,10));	//20
+									alert(sayBox2(10,10));	//20
+								</pre>
+								<div class="font">接下来是apply()和call()真正的用武之地：扩展函数赖以生存的作用域</div>
+								<pre class="example">
+									var color = '红色的';	//或者 window.color = '红色的';也行
+									var box = {
+										color : '蓝色的'
+									};
+									function sayColor() {
+										alert(this.color);
+									}
+									sayColor();	//作用域在 window
+									sayColor.call(this);	//作用域在 window
+									sayColor.call(window);	//作用域在 window
+									sayColor.call(box);	//作用域在 box，对象冒充
+									<span class="font">输出：红色的红色的红色的蓝色的</span>
+								</pre>
+		
+								<pre class="example">
+									var arr = [1,2,5,45,12,10];
+									alert(Math.max.apply(this.arr));
+									=> 此时输出45
+									<span class="font">该情况没有改变作用域，只是改变了函数的传参方式，如果写成Math.max(arr)，则会报错，遇到数组时只能写成Math.max(1,2,5,45,12,10)</span>
+								</pre>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--页脚-->
+		<div class="footer">
+			<div class="footer_main">
+				<div class="f_text2">我也不知道这里要写什么</div>
+			</div>
+		</div>
+	</body>
+</html>

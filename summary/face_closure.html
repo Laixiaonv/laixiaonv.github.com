@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>面向对象、闭包</title>
+		<link rel="stylesheet" href="../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+	</head>
+	<body >
+		<!--头部-->
+		<div class="head">
+			<div class="head_nav">XiaoPang</div>
+			<ul>
+				<li><a href="#">JavaScript</a></li>
+				<li><a href="#">css</a></li>
+				<li><a href="#">html</a></li>
+				<li><a href="index.html">首页</a></li>
+			</ul>
+		</div>
+		<div class="box">
+			<div class="left">
+			<h2>面向对象（继承、封装、抽象、多态）</h2>
+			<ul class="first">
+				<li>
+					<pre class="example">
+						function toString(obj){
+						 	for(attr in obj){
+						 		document.write(attr+":"+obj[attr]+";");
+						 	}
+						 }
+						 //体现多态
+						 toString(obj1);  //同一个函数，传入的对象不同，表现形式也不一样
+						 toString(obj2);
+					</pre>
+				</li>
+				<li>继承：代码复用性，便于代码的修改和扩展
+					<pre class="example">
+					// 父类
+						function Person(name,sex,age){
+							this.name = name,
+							this.sex = sex,
+							this.age = age
+						}
+						Person.prototype.eat = function(){
+							return alert("我饿了我要吃饭！");
+						}
+						Person.prototype.hi = function(){
+							return "My name is " + this.name + ".";
+						}
+	
+						function Student(name,sex,age,className){
+							// 调用父类的构造函数
+							Person.call(this,name,sex,age);
+							// 自己的还是要自己声明
+							this.className = className;
+						}
+						function toString(obj){
+							for(attr in obj){
+								document.write(attr+":"+obj[attr]+"<br/>");
+							}
+						}
+						// 让Student.prototype（原型）的指向修改成一个用Object.create创建的一个对象
+						// 对象它的原型又指向Person.prototype
+						Student.prototype = Object.create(Person.prototype);
+						// 创建一个学生
+						var  rose = new Student("rose","女","18","模型");
+						toString(rose);
+						document.write(rose.hi());
+						// document.write(rose.eat());
+						// 在继承之后，再来创建子类自己的函数，ps：在之前会被冲掉，因为原型被改变了
+						Student.prototype.classTest = function(){
+							alert("我热爱学习");
+						}
+						document.write(rose.classTest());
+	
+	
+						<span class="font">另外一个搞事情的例子</span>
+							function Animal(){}
+							Animal.prototype.eat = function(){
+								console.log("我喜欢吃炸鸡");
+							}
+							// 公共属性
+							Animal.prototype.leg = 4;
+							Animal.prototype.head = 1;
+							// 创建一个兔子
+							function Rabbit(){}
+							Rabbit.prototype = Animal.prototype;
+							// Rabbit.prototype = new Animal();  //间接指向原型
+							Rabbit.prototype.jump = function(){
+								return " 我很跳";
+							}
+	
+							// 创建一个老虎
+							function Tiger(){}
+							Tiger.prototype = Animal.prototype;
+	
+							// 兔子
+							var obj = new Rabbit();
+							obj.eat();
+							console.log(obj.leg);
+							console.log(obj.jump());
+	
+							var obj = new Tiger();
+							console.log(obj.jump());
+					</pre>
+				</li>
+				
+				<li>闭包：闭包就是能够读取其他函数内部变量的函数。
+					<div class="font">闭包的用途 1、可以读取函数内部的变量<br/>2、让这些变量的值始终保存在内存中<br/></div>
+					<pre class="example">
+						function dome(){
+							var num = 10;
+							alert (num);
+							return function(){
+								alert(num);
+							}
+						}
+						var obj = dome();
+						obj();
+						<span class="font">=> 10  10</span>
+						
+						var arr = [];
+						for (var i=0;i<5;i++){
+							(function(){
+								arr[i] = function(){
+									console.log(i);
+								}
+							})();
+						}
+						for ( index in arr ){
+							var box = arr[index];
+							box();
+						}	
+						<span class="font">=> 输出5个5</span>
+	
+						function box(){
+							var num = 10;
+							return function(){
+								alert(num);
+							}
+						}
+						var result = box();
+						result();
+						// = box()();
+						<span class="font">=> 10<br/>通过复函数内部返回的子函数，将外部与内部进行连接。<br/>我们把两者进行连接的函数称为闭包
+						<br/>(function(){})(); = !function(){}() = ~function(){}()</span>
+						<div class="font">
+							使用闭包的注意点
+							<br/> 由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致内存泄漏，
+						</div>
+						var box =function(){
+							var num = 10;
+							--num;
+							return function(){
+								console.log(num++);
+							}
+						}();
+						box();
+						box();
+						box();
+						<span class="font">=>输出：9 10 11</span>
+					</pre>
+				</li>
+				<li>属性封装
+					<pre class="example">
+						var obj = {
+							age:18,
+							getAge:function(){
+								return this.age;
+							},
+							setAge:function(age){
+								if(age>0&&age<150){
+									this.age = age;
+								}else{
+									this.age = 0;
+								}
+							}
+						} 
+	
+						(function(){
+							var age = 80;
+							var obj = {
+								age:18
+							};
+							function getAge(){
+								return obj.age;
+							}
+							function setAge(){
+								if(age>0&&age<150){
+									obj.age = age;
+								}else{
+									obj.age = 0;
+								}
+							}
+							<span class="font">// 提升到全局</span>
+							window.getAge = getAge;
+							window.setAge = setAge;
+						})();
+						console.log(getAge());
+						setAge(10);
+						console.log(getAge());
+						<span class="font">=> 18 80<br/>
+					</pre>
+				</li>
+			</ul>
+			</div>
+		</div>
+		<!--页脚-->
+		<div class="footer">
+			<div class="footer_main">
+				<div class="f_text2">我也不知道这里要写什么</div>
+			</div>
+		</div>
+	</body>
+</html>
