@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>DOM</title>
+		<link rel="stylesheet" href="../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+	</head>
+	<body >
+		<!--头部-->
+		<div class="head">
+			<div class="head_nav">XiaoPang</div>
+			<ul>
+				<li><a href="#">JavaScript</a></li>
+				<li><a href="#">css</a></li>
+				<li><a href="#">html</a></li>
+				<li><a href="../index.html">首页</a></li>
+			</ul>
+		</div>
+		<div class="box">
+			<div class="left">
+				<h2>DOM（文档对象模型）</h2>
+				<div>用于HTML的应用程序接口，有三个级别；通过DOM可以去改变文档；一共有12种类型</div>
+				<ul class="first">
+					<li>DONE对象：一种用来表示HTML元素的原始数据类型，即是所有节点的基类型，所有节点都继承自它，所以所有节点都有一些共同的方法和属性
+						<div class="example">节点对象代表文档树中一个单独的节点（HTML文档中所有的内容都是节点，如标签、空白的地方等）</div>
+						<ul class="second">
+							<li>childNodes属性：返回节点的子节点（NodeList对象，极其像数组）</li>
+							<li>appendChild()方法：方法可以在节点的childNodes的末尾增加一个节点</li>
+							<li>removeChild()方法：方法指定元素的某个指定的子节点,以 Node 对象返回被删除的节点，如果节点不存在则返回 null。
+								<pre class="example">
+									< ul id="nav" >
+										< li >青菜< /li >
+										< li >水果< /li >
+										< li >蛋糕< /li >
+									< /ul >
+									var list = document.getElementById("nav");
+									list.removeChild(list.childNodes[0]);
+								=> 输出结果为“水果 蛋糕”
+								</pre>
+							</li>
+						</ul>
+					</li>
+					<li>document对象
+						<ul class="second">
+							<li>document.getElementById():传入ID，得到元素节点</li>
+							<li>document.getElementsByClassName():返回文档中所有指定类名的元素集合，作为NodeList对象，可以使用 NodeList 对象的 length 属性来确定指定类名的元素个数，并循环各个元素来获取你需要的那个元素</li>
+							<li>document.getElementsByTagName():根据标签取得元素</li>
+							<li>document.getElementsByName():返回带有指定名称的对象集合</li>
+							<li>createElement():创建元素节点，可返回一个element对象
+								<pre class="example">
+								var name = document.getElementById("id");
+								var tag = document.createElement("input");
+								</pre>
+							</li>
+						</ul>
+					</li>
+					<li>Element对象的方法
+						<ul class="second">
+							<li>setAttribute() 方法:创建或改变某个新属性
+								<pre class="example">
+									var x = document.getElementById("text");
+									x.setAttribute("class","detail");
+									x.setAttribute("style","color:red;font-size:16px;");
+								</pre>
+							</li>
+							<li>getAttribute() 方法:获取指定元素的属性值</li>
+							<li>appendChild() 方法:加入节点（加在最后一个位置）
+								<pre class="example">
+								var div=document.createElement("div");			//新建一个div元素节点
+								document.body.appendChild(div);			//把div元素节点添加到body元素节点中成为其子节点，但是放在body的现有子节点的最后
+								</pre>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--页脚-->
+		<div class="footer">
+			<div class="footer_main">
+				<div class="f_text2">我也不知道这里要写什么</div>
+			</div>
+		</div>
+	</body>
+</html>
