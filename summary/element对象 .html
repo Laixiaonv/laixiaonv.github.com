@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>HTML DOM Element 对象</title>
+		<link rel="stylesheet" href="../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+	</head>
+	<body >
+		<!--头部-->
+		<div class="head">
+			<div class="head_nav">XiaoPang</div>
+			<ul>
+				<li><a href="#">JavaScript</a></li>
+				<li><a href="#">css</a></li>
+				<li><a href="#">html</a></li>
+				<li><a href="../index.html">首页</a></li>
+			</ul>
+		</div>
+		<div class="box">
+			<div class="left">
+				<h2>HTML DOM Element 对象</h2>
+				<div class="example">在初识 DOM 一节中我们已经举了几个常用element对象的例子，现在我们来详细地总结一下</div>
+				<ul class="first">
+					<li>我们先来举一个综合型的例子（其实也就是document.getElementByClassName()的原理）<br >
+					先说一个知识点：Elenemt.className()设置或返回元素的class属性
+						<pre class="example">
+						< ul id="list" >
+							< li class="name" >苹果< /li >
+							< li >香蕉< /li >
+							< li class="name" >鸭梨< /li >
+							< li >西瓜< /li >
+							< li class="name" >橘子< /li >
+						< /ul >
+						一下为script部分代码：
+						function getElementsByClass(idName,className){
+							var arr = [];                 //创建一个空数组，以便将后面我们所需要输出的节点放入
+							var list = document.getElementById(idName);
+							var listChild = list.childNodes;
+							for(var i=0 ; i < listChild.length ; i++){
+								if(listChild[i].className == className){     //此处判断id="list"下子节点的class值是不是与我们所要找的className相同
+									arr.push(listChild[i]);            //若相同,则将该节点放入数组中
+								}
+							}
+							return arr;
+						}
+						console.log(getElementByClass("list","name"));
+						
+						</pre>
+						<li>inserBefore() 方法：在指定的已有子节点之前插入新的子节点
+							<pre class="example">
+							var newLi = document.createElement("li");   //先创建一个li元素
+							var textNode = document.createTextNode("water");   // 创建一个元素
+							newLi.appendChild(textNode);    //把该文本放入=创建的li元素
+							var list = document.getElementById("list");
+							list.insertBefore(newLi,list.childNodes[0]);
+							=>此时输出的结果是Water 苹果  鸭梨  橘子
+							</pre>
+						</li>
+						<li>replaceChild(新节点，旧节点) 方法：用新节点替换某个子节点</li>
+						<li>nodeType() 方法：返回元素节点类型
+							<ul class="second">
+								<li>若节点是元素节点，返回1</li>
+								<li>若节点是属性节点，返回2</li>
+								<li>若节点是文本节点，返回3</li>
+							</ul>
+						</li>
+					</li>
+				</ul>
+				<h2>今天的一个重点就是DOM 中的table对象</h2>
+				<ul class="first">
+					<li>tBodies[]:返回包含表格中所有 tbody 的一个数组。</li>
+					<li>rows[]:返回包含表格中所有行的一个数组。</li>
+					<li>cells[]:返回包含表格中所有单元格的一个数组。</li>
+					<div>直接上一个表格移入移出的事件吧，觉得这样比较好理解</div>
+					<pre class="example">
+					//表格鼠标移入移出事件
+					function fox(){
+						var td = document.getElementById("tb");
+						var tb = td.tBodies[0].rows;
+						var oldColor ;               //创建一个变量来记录原始的颜色
+						for(var i = 0 ; i< tb . length ; i++){
+							if(i%2 == 0){            //奇偶行给定颜色
+								tb[i].style.background = "grey";
+							}else{
+								tb[i].style.background = "#e5e5e5"
+							}
+							tb[i].onmouseover=function(){
+								oldColor = this.style.background;    //将原始颜色通过oldColor来记录
+								this.style.backgroundColor="pink";   //此处若写成tb[i].style  会报错
+							}
+							tb[i].onmouseout=function(){
+								this.style.backgroundColor=oldColor;   //移除后，恢复为初始的颜色
+							}
+						}
+					}
+					fox();
+					</pre>
+				</ul>
+			</div>
+		</div>
+		<!--页脚-->
+		<div class="footer">
+			<div class="footer_main">
+				<div class="f_text2">我也不知道这里要写什么</div>
+			</div>
+		</div>
+	</body>
+</html>
