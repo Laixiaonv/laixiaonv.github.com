@@ -74,6 +74,7 @@
 					<li>cells[]:返回包含表格中所有单元格的一个数组。</li>
 					<div>直接上一个表格移入移出的事件吧，觉得这样比较好理解</div>
 					<pre class="example">
+
 					//表格鼠标移入移出事件
 					function fox(){
 						var td = document.getElementById("tb");
@@ -95,6 +96,44 @@
 						}
 					}
 					fox();
+
+					</pre>
+					<li>insertRow():在表格中插入一个新行</li>
+					<li>insertCell():在一行中的置顶位置插入一个空的< td >元素<br/>该方法将创建一个新的 < td >元素，把它插入行中指定的位置。新单元格将被插入当前位于 index 指定位置的表元之前。<br/>如果index等于行中的单元格数，则新单元格被附加在行的末尾。<br/>请注意，该方法只能插入 < td > 数据表元。若需要给行添加头表元，必须用 Document.createElement() 方法和 Node.insertBefore() 方法（或相关的方法）创建并插入一个 < th > 元素。
+					</li>
+					<pre class="example">
+					举一个表格插入按钮的功能实现例子
+					var index = students.length+1;
+					//添加信息
+					function add(){
+						var name = document.getElementById("name").value;
+						var sex = document.getElementById("sex").value;
+						var grade = document.getElementById("grade").value;
+						var tbody = document.getElementById("tbody");
+						//insertRow为-1时，添加在表格低端,否则数据会向上添加（即添加在表头上方）
+						var rows = tbody.insertRow(-1);
+						var Id = rows.insertCell(0);
+							Id.innerText = index;        //给Id赋值（即获取到的input输入数据）
+							index += 1;
+						var Name = rows.insertCell(1);
+							Name.innerText = name;
+						var Sex = rows.insertCell(1);
+							Sex.innerText = sex;
+						var Grade = rows.insertCell(1);
+							Grade.innerText = grade;
+						}
+					</pre>
+					<li>deleteRow():从表格删除一行</li>
+					<li>parentNode 属性:以 Node 对象的形式返回指定节点的父节点，如果指定节点没有父节点，则返回 null</li>
+					<li>rowIndex 属性:返回某一行在表格的行集合中的位置（row index）</li>
+					<pre>
+
+					举一个综合的例子：删除table中的某一行
+
+						var j = j.parentNode.parentNode.rowIndex;      
+
+						document.getElementById('table').deleteRow(j);
+						
 					</pre>
 				</ul>
 			</div>
