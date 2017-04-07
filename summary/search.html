@@ -87,10 +87,38 @@
 						window.open("http://www.baidu.com","_self");	//在当前窗口打开
 						</pre>					
 					</li>
+					<li>事件参数e
+						<div class="font">当事件发生的时候，系统会自动的给事件处理函数传递一个参数，会提供事件相关的一些数据，事件参数e浏览器的兼容性检测: e = e || event</div>
+						<pre class="example">
+						document.onmousemove = function(e){
+							var scollTop = document.documentElement.scrollTop || document.body.scrollTop;
+							var scollLeft = document.documentElement.scollLeft || document.body.scollLeft;
+							var evt = e || event;
+							div.style.left = evt.clientX  +scollLeft  + "px";
+							div.style.top = evt.clientY + scollTop + "px";
+						}
+						</pre>
+					</li>
 					<li>window.location:访问当前地址；还可以赋值</li>
-					<li>window.document.documentElement.clientWidth：可视宽<br/>
-						window.document.documentElement.clientHeight：可视高
-						<div class="font">注意：最好取整，因为某些电脑的显示会出现小数点</div>
+					<li>client系列
+						<ul class="second">
+							<li>clientX ：获取鼠标在可视区域的位置= width + padding</li>
+							<li>clientY = height + padding</li>
+							<li>clientLeft ：边框的宽度，若有滚动条的话，包括滚动条</li>
+							<li>window.document.documentElement.clientWidth：可视宽<br/>
+								window.document.documentElement.clientHeight：可视高
+								<div class="font">注意：最好取整，因为某些电脑的显示会出现小数点</div>
+							</li>
+							<pre class="example">
+							获取页面可视区域大小
+							function client() {
+								return {
+										clientWidth: window.innerWidth || document.body.clientWidth || document.documentElement.clientWidth || 0;
+										clientHeight: window.innerHeight || document.body.clientHeitght || document.documentElement.clientHeight || 0;
+									};
+								}
+							</pre>
+						</ul>
 					</li>
 					<li>scrollTop：滚动条距离文档头部的距离
 						<pre class="example">
