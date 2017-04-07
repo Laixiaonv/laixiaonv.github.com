@@ -41,9 +41,9 @@
 							for(var j = 0;j < arr.length; j ++){
 								var str = arr[j];
 									for( var i = 0 ;i < tb.length;i++ ){
-										//大小写忽略
+										//大小写忽略          tb = table.tBodies[0].rows;
 										if(tb[i].cells[1].innerText.toLocaleLowerCase().indexOf(str.toLocaleLowerCase())>-1){
-										tb[i].style.backgroundColor="yellow";	      //改变查找到的对象的背景颜色
+										tb[i].style.backgroundColor="yellow";	        //改变查找到的对象的背景颜色
 									}
 								}
 							}
@@ -51,11 +51,52 @@
 						</pre>
 					</li>
 					<li>排序
-						<ul class="second">
-							<li>若节点是元素节点，返回1</li>
-							<li>若节点是属性节点，返回2</li>
-							<li>若节点是文本节点，返回3</li>
-						</ul>
+						<pre class="example">
+						function rank(){
+							var arr = [];
+							for(var i = 0;i< tb.length;i++){
+								arr.push(tb[i]);  		 // tb = table.tBodies[0].rows;
+								arr[i]=tb[i];    		 //与上面写法的效果是一样的，都是把行放入数组
+							}
+							arr.sort(function(tr1,tr2){
+								var a = parseInt(tr1.cells[3].innerText); 
+								var b = parseInt(tr2.cells[3].innerText);
+								return a - b;
+							});
+							for(var j = 0 ;j< arr.length;j++){
+								td.tBodies[0].appendChild(arr[j]);
+							}
+						}
+						
+						</pre>
+						<div class="font">在这里我们要注意一下appendChild的一个用法，假设父级a中已经有子节点b，那么appendChild
+						的作用是<br/> 1.先将子节点b从父级a中删除；2.再将子节点b添加到a中，放在最末尾。</div>
+					</li>
+				</ul>
+				<h2>BOM:浏览器对象模型(浏览器窗口与窗口之间的介质)</h2>
+				<div>由于BOM主要用于管理窗口与窗口之间的通讯，因此其核心对象是window；BOM由一系列相关的对象构成，并且每个对象都提供了很多方法与属性；</div><br/>
+				<ul class="first">
+					<li>与浏览器窗口交互的一些对象，例如可以移动、调整浏览器大小的window对象，可以用于导航的location对象与history对象，可以获取浏览器、操作系统与用户屏幕信息的navigator与screen对象，可以使用document作为访问HTML文档的入口，管理框架的frames对象等。Location、Screen、Navigator、History。< /li>
+					<pre class="example">
+						
+								<img src="../img/num/BOM.jpg"/>
+					</pre>
+					<li>window.open
+						<pre class="example">
+						window.open("about:block");					//打开空白页（新窗口）
+						window.open("http://www.baidu.com","_self");	//在当前窗口打开
+						</pre>					
+					</li>
+					<li>window.location:访问当前地址；还可以赋值</li>
+					<li>window.document.documentElement.clientWidth：可视宽<br/>
+						window.document.documentElement.clientHeight：可视高
+						<div class="font">注意：最好取整，因为某些电脑的显示会出现小数点</div>
+					</li>
+					<li>scrollTop：滚动条距离文档头部的距离
+						<pre class="example">
+						var scrollTop = window.document.documentElement.scrollTop || window.document.body.scrollTop;
+						alert(scrollTop);    <span class="font">//因为chorme不支持，所以要加一个判断，写成window.document.body.scrollTop</span>
+						</pre>	
 					</li>
 				</ul>
 			</div>
