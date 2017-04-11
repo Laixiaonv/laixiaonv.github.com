@@ -63,6 +63,10 @@
 							<li>mousemover:鼠标移动到某元素上的时候触发mousemove事件</li>
 							<li>mouseout：鼠标从某元素离开的时候触发mouseout事件</li>
 							<li>mousemove：鼠标在某元素上移动但未离开的时候触发mousemove事件</li>
+							<li>mouseleave：鼠标离开时触发</li>
+							<li>mouseenter：鼠标进入时触发
+								<div class="font">mouseleave和mouseenter与mousemover和 mouseout的区别是前者不支持冒泡</div>
+							</li>
 							<li>mousewheel：当使用滚轮时触发</li>
 							<li>contextmenu：显示菜单时会触发些事件</li>
 							<li>detail：对于click事件来讲他指定了是单击还是双击还是三击</li>
@@ -71,7 +75,7 @@
 					</li>
 					<li>键盘事件
 						<ul class="second">
-							<li>keypress:按键按下的时候触发该事件</li>
+							<li>keypress:按键按下的时候触发该事件 键盘侦听（资源占用率高）</li>
 							<li>keydown:按键按下的时候触发该事件，并且在keypress事件之前</li>
 							<li>keyup:按键松开的时候触发该事件，在keydown和keypress事件之后</li>
 						</ul>
@@ -86,12 +90,28 @@
 							<li>blur:元素失去焦点的时候触发该事件，通常来自鼠标设备或Tab导航</li>
 						</ul>
 					</li>
-					<li>window事件
+					<li>window事件（浏览器事件）
 						<ul class="second">
 							<li>load:页面加载完毕（包括内容、图片、frame、object）的时候触发该事件</li>
 							<li>resize:页面大小改变的时候触发该事件（例如浏览器缩放）</li>
 							<li>scroll:页面滚动的时候触发该事件</li>
 							<li>unload:从页面或frame删除所有内容的时候触发该事件（例如离开一个页面）</li>
+						</ul>
+					</li>
+					<li>TouchEvent：手势事件
+						<div class="font">要注意的是：在手势事件中，只能用addEventListener(在事件侦听那一节我们会重点介绍这个东西)</div>
+						<ul class="second">
+							<li>touchstart:手势开始</li>
+							<li>touchmove:手势变化（即手指拖动）</li>
+							<li>touchend:手势结束</li>
+							<li>touchcancel：手势取消（但这个我们一般不会使用，除非是做游戏等）</li>
+							<pre class="example">
+							举一个例子吧
+							document.addEventListener("touchstart",function(e){
+								console.log(e.touches[0].clientX);			<span class="font">//这里若直接写e.clientX会报undefined</span>
+							})
+							</pre>
+							<span class="font">因为触摸有一个手指、两个手指、三个手指等各种的手势，所以我们要通过数组来选定一个事件。具体可输出e来查看</span>
 						</ul>
 					</li>
 				</ul>

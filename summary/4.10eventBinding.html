@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>事件侦听</title>
+		<link rel="stylesheet" href="../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+	</head>
+	<body >
+		<!--头部-->
+		<div class="head">
+			<div class="head_nav">XiaoPang</div>
+			<ul>
+				<li><a href="#">JavaScript</a></li>
+				<li><a href="#">css</a></li>
+				<li><a href="#">html</a></li>
+				<li><a href="../index.html">首页</a></li>
+			</ul>
+		</div>
+		<div class="box">
+			<div class="left">
+				<h2>事件侦听</h2>
+				<ul class="first">
+					<li>attachEvent事件：要注意的是火狐不兼容
+						<pre class="example">
+							
+							attachEvent("onclick",function(){]})
+						</pre>
+					</li>
+					<li>addEventListener事件：要注意的是IE不兼容
+						<pre>
+							
+						addEventListener(" ",function(){},false);
+						</pre>
+						说明：  “ ”内加的是事件，都是不带“on”的，比如click,mouseover<br/>
+						function(){}是一个回调函数，一般我们都用命名函数<br />
+						false 表示的是冒泡或者捕获，默认为false（即捕获），可以省略
+					</li>
+					<li>为了解决以上的兼容问题，我们要加一个判断
+						<pre class="example">
+						<span class="font">（这是个很厉害的通用啊，和之前的evt = e || event 一样）</span>
+						if(btn.attachEvent){
+							btn.attachEvent("onclick",function(){
+								alert("a");
+							});
+						}else{
+							btn.addEventListener("click",function(){
+								alert("a");
+							});
+						}
+						</pre>
+					</li>
+					<h3>下面说一下移除侦听，也同时解释了上面为什么建议不要写匿名函数</h3>
+					<ul class="first">
+						<li>如：btn.detachEvent("onclick",fun)<br/>function fun(){}</li>
+						<li>如：btn.removeEventListener("click",fun)</li>
+						<div class="font">在移除侦听时，后面必须写函数名，所以我们再写事件的时候，也建议不要写匿名函数</div>
+					</ul>
+				</ul>
+			</div>
+		</div>
+		<!--页脚-->
+		<div class="footer">
+			<div class="footer_main">
+				<div class="f_text2">我也不知道这里要写什么</div>
+			</div>
+		</div>
+	</body>
+</html>
