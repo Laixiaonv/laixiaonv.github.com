@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>this,面向对象</title>
+		<link rel="stylesheet" href="../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+	</style>
+	</head>
+	<body >
+		<!--头部-->
+		<div class="head">
+			<div class="head_nav">XiaoPang</div>
+			<ul>
+				<li><a href="#">JavaScript</a></li>
+				<li><a href="#">css</a></li>
+				<li><a href="#">html</a></li>
+				<li><a href="../index.html">首页</a></li>
+			</ul>
+		</div>
+		<div class="box">
+			<div class="left">
+				<h2>关于this的指向问题：this是在函数真正被调用执行的时候确定的</h2>
+				<ul class="first">
+					<li>构造函数
+						<pre>
+						function Foo(){
+							this.name = "xiaohei";
+							this.year = 1988;
+							console.log(this);     //此时this指向的是new出来的对象
+						}						<span class="font">//注意：仅限new的情况</span>
+						var f1 = new Foo();
+						alert(f1.name);			//xiaohei
+						alert(f1.year);			//1988
+					<span class="font">若不new一个对象，直接调用Foo(),此时指向的是window</span>
+						</pre>
+					</li>
+					<li>函数作为对象的一个属性
+						<div class="example">若函数作为对象的一个属性时，并且作为对象的一个属性被调用时，函数中的this指向该对象</div>
+						<pre>
+						var obj ={
+							x:10,
+							fn:function(){
+								console.log(this);     //返回obj
+								console.log(this.x);   //10
+							}
+						};
+						obj.fn();    
+						<span class="font">简单来说就是“ . ”的前面是什么，指向的就是什么</span>
+						
+						下面是不作为属性被调用的情况
+						即 var fn1 = obj.fn;
+								fn1();
+							console.log(this);			//返回window
+							console.log(this.x);		//undefined
+						<span class="font">fn被赋值给fn1，没有作为obj的一个属性被调用，此时this就是window</span>
+						</pre>
+					</li>
+					<li>全局 & 普通调用
+						<div class="font">全局环境下，this永远指向window<br/>普通函数在调用时，this也指向window</div>
+					<pre>
+					var obj = {
+						x:10,
+						fn:function(){
+							function f(){
+								console.log(this);		//window
+								console.log(this.x);		//undefined
+							}						<span class="font">//在该情况下，函数虽然是在obj.fn的内部定义，但仍然是一个普通的函数</span>
+							f();
+						} 					
+					}
+					obj.fn();
+					</pre>
+					</li>
+					<li>函数用call或者apply调用，this的值就取传入的对象的值
+					<pre>
+					var obj ={
+						x:10
+					}
+					var fn = function(){
+						console.log(this);    //obj
+						console.log(this.x);	//10
+					}
+					fn.apply(obj);
+					若fn(obj);则返回的是window和undefined
+					</pre>
+					</li>
+					<h3>这是一个终极而且简直了的例子</h3>
+					<pre>
+					function Foo(){
+						getName = function(){     //这是一个全局的变量
+					  		console.log(1);	
+					 	}
+					  	return this;
+					}
+					Foo.getName = function(){
+					  	console.log(2);
+					}
+					Foo.prototype.getName = function(){
+					 	console.log(3);
+					}
+					var getName = function(){
+					  	console.log(4);
+					}
+					function getName(){
+					  	console.log(5);
+					} 
+					Foo.getName();  	 		//2
+					getName();       			//4
+					Foo().getName(); 			//1 
+					getName();				//1  
+					new Foo.getName();		//2 
+					new Foo().getName();		//3   
+					<span class="font">这里new先找到了Foo(),因为这玩意带括号，所以会先执行new Foo(),但是仅限这种带括号的情况</span>
+					new new Foo().getName();	//3   
+					</pre>
+				</ul>
+			</div>
+		</div>
+		<!--页脚-->
+		<div class="footer">
+			<div class="footer_main">
+				<div class="f_text2">我也不知道这里要写什么</div>
+			</div>
+		</div>
+	</body>
+</html>
