@@ -111,7 +111,7 @@
 					getName();				//1  
 					new Foo.getName();		//2 
 					new Foo().getName();		//3   
-					<span class="font">这里new先找到了Foo(),因为这玩意带括号，所以会先执行new Foo(),但是仅限这种带括号的情况</span>
+					<span class="font">这里new先找到了Foo(),因为这玩意带括号，所以会先执行new Foo()，该情况会去找他的prototype,但是仅限这种带括号的情况</span>
 					new new Foo().getName();	//3   
 					</pre>
 				</ul>
