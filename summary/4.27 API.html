@@ -77,14 +77,14 @@
 		<script type="text/javascript">
 			var myVideo = document.getElementById("myVideo");
 			var myCanvas = document.getElementById("myCanvas");
-			var camera = window.navigator.getUserMedia || 
+			window.navigator.getUserMedia = window.navigator.getUserMedia || window.navigator.mozGetUserMedia || 
 			window.navigator.webkitGetUserMedia || 
 			window.navigator.msGetUserMedia;
 			 
 			var ctx = myCanvas.getContext("2d");
 			function openCamera(){
-				if(camera){
-					camera({
+				if(window.navigator.getUserMedia){
+					window.navigator.getUserMedia({
 					"video":true,
 					"audio":true    //话筒
 					},successFun,errorFun);
