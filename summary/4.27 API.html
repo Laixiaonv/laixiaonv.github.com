@@ -77,7 +77,7 @@
 		<script type="text/javascript">
 			var myVideo = document.getElementById("myVideo");
 			var myCanvas = document.getElementById("myCanvas");
-			var camera = window.navigator.getUserMedia || window.navigator.mozGetUserMedia || 
+			window.navigator.getUserMedia  =  window.navigator.mozGetUserMedia || 
 			window.navigator.webkitGetUserMedia || 
 			window.navigator.msGetUserMedia;
 			 
