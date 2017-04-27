@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				font-family: "微软雅黑";
+			}
+			.box{
+				width: 350px;
+				height: 405px;
+				border: 1px solid #E5E5E5;
+				padding:0 15px;
+				background-size: cover;
+				overflow: hidden;
+				margin:auto;
+			}
+			.week span{
+				display: block;
+				float: left;
+				width: 50px;
+				text-align: center;
+				line-height: 40px;
+			}
+			td{  
+				width: 50px;
+				text-align: center;
+				line-height: 40px;
+				height: 50px;
+				cursor: pointer;
+				border-radius: 50%;
+			}
+			td:hover{
+				background-color: tomato;
+				color: #fff;
+			}
+			#year{
+				position: absolute;
+				width:70px;
+				text-align: center;
+				font-size: 13px;
+				height: 150px;
+				overflow-y: scroll;
+				background-color: #fff;
+				color: #8B8B8B;
+				z-index: 10;
+				border: 1px solid #E5E5E5;
+				float: left;
+				display: none;
+			}
+			#month{
+				position: absolute;
+				width:50px;
+				text-align: center;
+				font-size: 13px;
+				background-color: #fff;
+				color: #8B8B8B;
+				z-index: 10;
+				border: 1px solid #E5E5E5;
+				left: 100px;
+				display: none;
+			}
+			#year div,#month div{
+				cursor: pointer;
+			}
+			#year div:hover{
+				background-color: #bfdff5;
+			} 
+			#month div:hover{
+				background-color: #bfdff5;
+			}
+			#date{
+				line-height: 30px;
+			}
+			.top{
+				position: relative;
+				padding:15px 20px 0 20px;
+				height: 50px;
+			}
+			#textYear{
+				display: inline-block;
+				width:70px;
+				text-align: center;
+			}
+			#textMonth{
+				display: inline-block;
+				width:60px;
+				text-align: center;
+			}
+			.left{
+				float: left;
+				cursor: pointer;
+			}
+			#today{
+				float:right;
+				cursor: pointer;
+			}
+			.color{
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="top">
+				<div class="left">
+					<div id="date1">
+						<span id="textYear">2017年</span>
+						<span id="textMonth">1月</span>
+					</div>
+					<div id = "year"></div>
+					<div id = "month"></div>
+				</div>
+				<div id="today">回到今天</div>
+			</div>
+			<div class="week">
+				<span>一</span>
+				<span>二</span>
+				<span>三</span>
+				<span>四</span>
+				<span>五</span>
+				<span>六</span>
+				<span>日</span>
+			</div>
+			<table border="0" cellspacing="0" cellpadding="0">
+			
+			</table>
+		</div>
+		<script type="text/javascript">
+			var table = document.getElementsByTagName("table")[0];
+			var month = document.getElementById("month");
+			var year = document.getElementById("year");
+			var textYear = document.getElementById("textYear");
+			var textMonth = document.getElementById("textMonth");
+			for(var i = 2001 ;i<=2020;i++){
+				var optionYear = document.createElement("div");
+					optionYear.innerText = i+"年";
+					year.appendChild(optionYear);
+			}
+			for(var i = 1 ;i<=12;i++){
+				var optionMonth = document.createElement("div");
+					optionMonth.innerText = i+"月";
+					month.appendChild(optionMonth);
+			}
+			
+			var monthDiv = month.getElementsByTagName("div");
+			var yearDiv = year.getElementsByTagName("div");
+			optionClick(monthDiv,textMonth,month);
+			optionClick(yearDiv,textYear,year);
+			function optionClick(name,change,none){
+				for(var i = 0 ; i < name.length ;i++){
+					name[i].onclick = function(){
+						change.innerText = this.innerText;
+						none.style.display = "none";
+						flag = true;
+					}
+				}
+			}
+			dateBook(2017,1);
+			var date1 = document.getElementById("date1");
+			function change(changT){
+				changT.onclick = function(){
+					table.innerHTML = "";
+					var y = textYear.innerText;
+					var m = textMonth.innerText;
+					dateBook(parseInt(y),parseInt(m));
+				}
+			}
+			change(year);
+			change(month);
+			
+			
+			var flag = true;
+			block(textYear,year);
+			block(textMonth,month);
+			function block(name1,name2){
+				name1.onclick = function(){
+					if(flag){
+						name2.style.display = "block";
+						flag = false;
+					}else{
+						name2.style.display = "none";
+						flag = true;
+					}
+				}
+			}
+			
+			function dateBook(year,month){
+				var days = new Date(year,month,0).getDate();
+				var firstDay = new Date(year + "-" + month + "-1").getDay();
+				var col;
+				if(firstDay == "0"){
+					firstDay = "7";
+					col = Math.ceil((days+firstDay)/7); 
+				}else{
+					col =  Math.ceil((days+firstDay) / 7 ); 
+				}
+				for(var i=0 ; i<col ; i++){
+					var tr = document.createElement("tr");
+						table.appendChild(tr);
+					for(var j = 1 ; j<=7 ; j++){
+						var td = document.createElement("td");
+							if(i*7+j-firstDay + 1<=0 || i*7+j-firstDay + 1>days){
+								td.innerText = "";
+							}else{
+								td.innerText = i*7 + j -firstDay + 1;	
+							}
+						tr.appendChild(td);	
+					} 
+				}
+				for(var i = 0;i<col;i++){
+					table.rows[i].cells[5].className = "color"; 
+					table.rows[i].cells[6].className = "color"; 
+				}
+				
+			}
+			
+			var today = document.getElementById("today");
+			var td = document.getElementsByTagName("td");
+			today.onclick = function(){
+				table.innerHTML = "";
+				var y = new Date().getFullYear();
+				var m = new Date().getMonth();
+				var d = new Date().getDate();
+				dateBook(y,m+1);
+				for(var i = 0 ;i<td.length;i++){
+					if(td[i].innerText == d){
+						td[i].style.backgroundColor="tomato";
+						td[i].style.color="#fff";
+					}
+				}
+			} 
+		</script>
+	</body>
+</html>

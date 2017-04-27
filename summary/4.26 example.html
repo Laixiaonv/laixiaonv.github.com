@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>canvas</title>
+		<link href="http://alexgorbatchev.com/pub/sh/current/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+		<script src="http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js" type="text/javascript"></script>
+		<link rel="stylesheet" href="../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+			<style type="text/css">
+				textarea{
+				resize:none;
+				}
+				.btn{
+					display: block;
+					width:80px;
+					background-color:forestgreen;
+					color: #fff;
+					border-radius: 5px;
+					cursor: pointer;
+					height: 30px;
+					line-height: 30px;
+					text-align: center;
+				}
+			</style>
+	</style>
+	</head>
+	<body >
+		<!--头部-->
+		<div class="head">
+			<div class="head_nav">XiaoPang</div>
+			<ul>
+				<li><a href="#">JavaScript</a></li>
+				<li><a href="#">css</a></li>
+				<li><a href="#">html</a></li>
+				<li><a href="../index.html">首页</a></li>
+			</ul>
+		</div>
+		<div class="box">
+			<div class="left">
+				<ul class="first">
+					<li>日历
+					<pre class="example"> 
+					//通过两个循环来创建选取年份和日期的下拉菜单，自行做相应的样式修改
+					for(var i = 2001 ;i<=2020;i++){
+						var optionYear = document.createElement("div");
+							optionYear.innerText = i+"年";
+							year.appendChild(optionYear);
+					}
+					for(var i = 1 ;i<=12;i++){
+						var optionMonth = document.createElement("div");
+							optionMonth.innerText = i+"月";
+							month.appendChild(optionMonth);
+					}
+					
+					<span class="font">主要是创建日历显示的这一部分，然后显示对应的日期和星期，我们用table来显示样式</span>
+					function dateBook(year,month){
+						var days = new Date(year,month,0).getDate();		//获取这个月的天数
+						var firstDay = new Date(year + "-" + month + "-1").getDay();		//获取这个月第一天是星期几
+						var col;		//var 一个变量，存放日历显示的行数
+						if(firstDay == "0"){		//因为在国外星期天默认为“0”而不是“7”，所以我们要对第一天是星期天的情况做一个处理
+							firstDay = "7";
+							col = Math.ceil((days+firstDay)/7);		//因为我们在计算一共有几行的时候要算上前面空出的那几天，也就是第一天是星期几，
+																	前面就空出相应的天数
+						}else{
+							col =  Math.ceil((days+firstDay) / 7 ); 
+						}
+						for(var i=0 ; i< col ; i ++){			//根据天数创建行
+							var tr = document.createElement("tr");
+								table.appendChild(tr);
+							for(var j = 1 ; j<=7 ; j++){		//一个创建col*7个单元格
+								var td = document.createElement("td");
+									//判断,当数值小于1或者大于一个月的天数时,那几个单元格都清空
+									if(i*7+j-firstDay + 1<=0 || i*7+j-firstDay + 1>days){
+										td.innerText = "";
+									}else{
+										td.innerText = i*7 + j -firstDay + 1;	
+									}
+								tr.appendChild(td);	
+							} 
+						}
+						//周六、日的天数显示样式为红色
+						for(var i = 0;i < col;i++){
+							table.rows[i].cells[5].className = "color"; 
+							table.rows[i].cells[6].className = "color"; 
+						}
+					}
+					</pre>
+					<a class="btn" href="../example/4-26date.html">在线演示</a>
+					</li>
+					
+				</ul>
+			</div>
+		</div>
+		<!--页脚-->
+		<div class="footer">
+			<div class="footer_main">
+				<div class="f_text2">我也不知道这里要写什么</div>
+			</div>
+		</div>
+	</body>
+</html>

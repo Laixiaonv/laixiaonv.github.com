@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
-		<style type="text/css">
+		<style type="text/css"> 
 			body{
 				background-color: #bbb;
 			}
@@ -15,7 +15,7 @@
 				height: 450px;
 				border-radius: 30px;
 				background-color: #FFFFFF;
-			}
+			} 
 			#title{
 				/*position: absolute;*/
 				text-align: center;
@@ -24,7 +24,7 @@
 			}
 			#myVideo{
 				top: 40px;
-				position: absolute;
+				position: absolute; 
 				background-color: #333333;
 			}
 			#getPic{
@@ -56,6 +56,15 @@
 				text-decoration: none;
 				color: #333;
 			}
+			#name{
+				border: 1px solid #fff;
+				padding: 10px;
+				/*outline: none;*/
+			}
+			#div{
+				height: 200px;
+				width: 200px;
+			}
 		</style>
 	</head>
 	<body>
@@ -72,12 +81,16 @@
 		<div id="box">
 			<canvas width="610" height="370" id = "myCanvas">你的浏览器不支持</canvas>	
 		</div>
+		<input id="ipt" name="ipt" type="text"  value ="xiaonv.party"/>
+		<div id="div"></div>
 		
-	
+		<script src="erweima.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			var myVideo = document.getElementById("myVideo");
 			var myCanvas = document.getElementById("myCanvas");
-			 	var ctx = myCanvas.getContext("2d");
+			var ctx = myCanvas.getContext("2d");
+			var div = document.getElementById("div");
+			var ipt = document.getElementById("ipt");
 			window.navigator.getUserMedia = window.navigator.getUserMedia ||
 				window.navigator.mozGetUserMedia ||
 				window.navigator.webkitGetUserMedia ||
@@ -87,11 +100,11 @@
 				if(window.navigator.getUserMedia) {
 					window.navigator.getUserMedia({
 						"video": true,
-						"audio": true
+						"audio": true 
 					}, successFun, errorFun);
 				} else {
 					alert("你的浏览器不支持开启摄像头！");
-				}
+				} 
 			}
 
 			window.URL = window.URL ||
@@ -111,9 +124,11 @@
 				alert(err);
 			}
 
+			 
 			function clipImg() {
 				ctx.drawImage(myVideo, 0, 0);
 				canvasToImage(myCanvas);
+				getQr();
 			}
 
 			function getQr() {
@@ -125,6 +140,12 @@
 				var dataurl = ctx.canvas.toDataURL(type).replace("image/png", "image/octet-stream");
 				window.location.href = dataurl;
 			}
+			
+				var qrcode = new QRCode(document.getElementById("div"), {
+				width : 200,
+				height : 200
+			});
+				qrcode.makeCode(ipt.value); 
 			
 		</script>
 	</body>
