@@ -77,42 +77,55 @@
 		<script type="text/javascript">
 			var myVideo = document.getElementById("myVideo");
 			var myCanvas = document.getElementById("myCanvas");
-			window.navigator.getUserMedia = window.navigator.getUserMedia || window.navigator.mozGetUserMedia || 
-			window.navigator.webkitGetUserMedia || 
-			window.navigator.msGetUserMedia;
-			 
-			var ctx = myCanvas.getContext("2d");
-			function openCamera(){
-				if(window.navigator.getUserMedia){
+			 	var ctx = myCanvas.getContext("2d");
+			window.navigator.getUserMedia = window.navigator.getUserMedia ||
+				window.navigator.mozGetUserMedia ||
+				window.navigator.webkitGetUserMedia ||
+				window.navigator.msGetUserMedia;
+
+			function openCamera() {
+				if(window.navigator.getUserMedia) {
 					window.navigator.getUserMedia({
-					"video":true,
-					"audio":true    //话筒
-					},successFun,errorFun);
-				}else{
-					alert("你的浏览器无法开启摄像头");
+						"video": true,
+						"audio": true
+					}, successFun, errorFun);
+				} else {
+					alert("你的浏览器不支持开启摄像头！");
 				}
 			}
-			
+
 			window.URL = window.URL ||
-			window.mozURL ||
-			window.webkitURL ||
-			window.msURL;
-			//获取成功时			
-			function successFun(stream){
-				if(myVideo.mozSrcObject !== undefined){
-					myVideo.mozSrcObject = stream;     //一个“流”,
-				}else{
-					myVideo.src = window.URL ? window.URL.createObjectURL(stream):stream;
+				window.mozURL ||
+				window.webkitURL ||
+				window.msURL;
+
+			function successFun(stream) {
+				if(myVideo.mozSrcObject !== undefined) {
+					myVideo.mozSrcObject = stream;
+				} else {
+					myVideo.src = window.URL ? window.URL.createObjectURL(stream) : stream;
 				}
 			}
-			//获取失败时
-			function errorFun(err){
+
+			function errorFun(err) {
 				alert(err);
 			}
-			
-			function clipImg(){
-				ctx.drawImage(myVideo,0,0)
+
+			function clipImg() {
+				ctx.drawImage(myVideo, 0, 0);
+				canvasToImage(myCanvas);
 			}
+
+			function getQr() {
+				qrcode.decode(window.location.href);
+			}
+
+			function canvasToImage(canvas) {
+				var type = "image/png";
+				var dataurl = ctx.canvas.toDataURL(type).replace("image/png", "image/octet-stream");
+				window.location.href = dataurl;
+			}
+			
 		</script>
 	</body>
 </html>
