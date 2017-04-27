@@ -112,7 +112,85 @@
 							<li>save():保存当前的绘图状态。
 								<div class="font"> 注意：save()方法不仅包括当前坐标系统的状态，也包括CanvasRenderingContext2D所设置的填充风格、线条风格、阴影风格的各种绘图状态。但save方法不会保存当前Canvas上绘制的图形</div>
 							</li>
-							<li>restore():恢复之前保存的绘图状态。</li>
+							<li>restore():恢复之前保存的绘图状态。两者配合使用，但restore不能比save多</li>
+							<div class="example">来打个比方好勒，canvas.save();和canvas.restore();是两个相互匹配出现的，作用是用来保存画布的状态和取出保存的状态的。
+								当我们对画布进行旋转，缩放，平移等操作的时候其实我们是想对特定的元素进行操作，
+								比如图片，一个矩形等，但是当你用canvas的方法来进行这些操作的时候，其实是对整个画布进行了操作，那么之后在画布
+								上的元素都会受到影响，所以我们在操作之前调用canvas.save()来保存画布当前的状态，当操作之后取出之前保存过的状态，
+								这样就不会对其他的元素进行影响</div>
+						</ul>
+					</li>
+					<li>绘制变形图形
+						<ul class="second">
+							<li>绘制平移效果：translate(x,y)  以原点为参考，默认原点为（0，0）
+								<div class="font">即变换原点坐标</div>
+								<pre class="example">
+									综合的例子
+									canvas.save();			//锁画布(为了保存之前的画布状态)  
+									canvas.translate(10, 10);			//把当前画布的原点移到(10,10),后面的操作都以(10,10)作为参照点
+									drawScene(canvas);  
+									canvas.restore();			//把当前画布返回（调整）到上一个save()状态之前  
+									  
+									canvas.save();			//锁画布(为了保存之前的画布状态)  
+									canvas.translate(160, 10);			//把当前画布的原点移到(160,10),后面的操作都以(160,10)作为参照点  
+									canvas.clipRect(10, 10, 90, 90);			//这里的真实坐标为左上(170,170)、右下(250,250)  
+									drawScene(canvas);  
+									canvas.restore();  
+								</pre>
+							</li>
+							<li>绘制缩放效果：scale() 方法缩放当前绘图，更大或更小<br />
+								scale(2,3)：宽度200%，高度300%
+								<div class="font">要注意的是：如果您对绘图进行缩放，所有之后的绘图也会被缩放。
+									定位也会被缩放。如果您 scale(2,2)，那么绘图将定位于距离画布左上角两倍远的位置</div>
+							</li>
+							<li>绘制旋转效果：rotate(angel):旋转.angle指旋转的角度，顺时针旋转,旋转的时候记得要把中心转换一下，否则旋转的中心是canvas的左上角（scale()的中心也是左上角），也就是点(0,0)
+								<div class="font">所以我们需要结合translate(x,y)一起使用</div>
+							</li>
+							<li>接下来是一个组合图形，我一直记不住，直接上图好了
+								<pre class="example">
+								这是一张用法的解释
+								<img src="../img/num/canvas.png" />
+								接下来是表现的形式，帮助理解,蓝色部分为canvas画布，红色为绘图部分
+								<img src="../img/num/canvas2.png" />
+								</pre>
+							</li>
+						</ul>
+					</li>
+					<li>绘制图象
+						<ul class="second">
+							<li>drawImage
+								<pre class="example">
+								var img = new Image();
+								img.src = "01.jpg";
+								img.onload = function(){
+									ctx.drawImage(img,0,0,300,180);
+								}
+								</pre>
+							</li>
+							<li>图象像素
+								<pre class="example">
+								<img src="../img/num/canvas3.png"/>
+								function draw(id){
+									var myCanvas = document.getElementById(id);
+									var context = myCanvas.getContext("2d");
+									var img = new Image;
+									img.src="../3.30/img/zhuomian.jpg";
+									img.onload=function(){
+										context.drawImage(img,0,0);
+										var imagedata = context.getImageData(0,0,img.width,img.height);
+										for(var i = 0,n = imagedata.data.length;i < n ; i +=4){
+											imagedata.data[i+0] = 255-imagedata.data[i+0];	
+											//返回一个对象，其包含指定的 ImageData 对象的图像数据
+											imagedata.data[i+1] = 255-imagedata.data[i+1];
+											imagedata.data[i+2] = 255-imagedata.data[i+2];
+										}
+										context.putImageData(imagedata,0,0);
+									}
+								}
+								</pre>
+							</li>
+							<li>剪裁图象：clip，表示给canvas设置一个剪辑区域，在调用该方法后，所有代码支队剪辑区域有效，不会影响
+							其他地方，在更新局部时很有用，默认情况下剪裁区域是一个左上角在(0，0)位置，宽高分别等于canvas元素的宽高的矩形</li>
 						</ul>
 					</li>
 				</ul>
