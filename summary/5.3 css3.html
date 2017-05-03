@@ -15,9 +15,9 @@
 				<li><a href="#">css</a></li>
 				<li><a href="#">html</a></li>
 				<li><a href="../index.html">首页</a></li>
-			</ul>
-		</div>
-		<div class="box">
+			</ul> 
+		</div> 
+		<div class="box"> 
 			<div class="left">
 				<h2>CSS选择器（加强版）</h2>
 				<ul class="first">
@@ -104,6 +104,18 @@
 								参数还可以设为数值，如transform-origin：50px 50px<br />
 								同时也可以是百分比，如transform-origin：50% 50%
 							</li>
+							<li>matrix(a,b,c,d,e,f)
+								a:x轴缩放<br />
+								b:x轴倾斜角度<br />
+								c:y轴倾斜角度<br />
+								d:y轴缩放<br />
+								e:水平偏移<br />
+								f:垂直偏移
+								<div class="example">
+									推荐一个写的很详细的博客：<a href="http://www.zhangxinxu.com/wordpress/2012/06/css3-transform-matrix-矩阵/">点我点我点我</a><br />
+									这个东西真的太难以用言语表达，我们需要借助一下外来的力量
+								</div>
+							</li>
 						</ul>
 					</li>
 					<li>transaction:过渡效果
@@ -124,6 +136,14 @@
 							</li>
 							<li>transaction-delay:设置延迟时间</li>
 							<div class="font">复合型：① ② ③ ④</div>
+						</ul>
+					</li>
+					<li>动画属性animation(@keyframes + 名字)，同样也具有复合型
+						<ul class="second">
+							<li>animation-duration：time  指定对象动画的持续时间</li>
+							<li>animation-timing-function：同transaction过渡效果</li>
+							<li>animation-delay：设置对象动画延迟时间</li>
+							<li>animation-iteration-count：设置动画的具体循环次数，若为“infinite”，则为无限循环</li>
 						</ul>
 					</li>
 					<li>边框渲染(box-sizing)
