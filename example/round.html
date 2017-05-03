@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.wrap{
+				width: 200px;
+				height: 200px;
+				position: relative;
+				margin: auto;
+				top: 200px;
+				-webkit-transform-style:preserve-3d;
+				transform-style:preserve-3d;
+				-webkit-animation:myBox 5s linear infinite;
+				animation:myBox 5s linear infinite;
+			}
+			.box{
+				width: 200px;
+				height: 200px;
+				position: absolute;
+				line-height: 200px;
+				text-align: center;
+				font-size: 48px;
+				color: white;	
+			}
+			.box1{
+				-webkit-transform:rotateY(90deg) translateZ(-100px);
+				transform:rotateY(90deg) translateZ(-100px);
+				background: rgba(254,67,101,.6);
+			}
+			.box2{
+				-webkit-transform:rotateY(90deg) translateZ(100px);
+				transform:rotateY(90deg) translateZ(100px);
+				background: rgba(241,184,228,.6);
+			}
+			.box3{
+				-webkit-transform:rotateX(90deg) translateZ(100px);
+				transform:rotateX(90deg) translateZ(100px);
+				background: rgba(249,205,173,.6);
+			}
+			.box4{
+				-webkit-transform:rotateX(90deg) translateZ(-100px);
+				transform:rotateX(90deg) translateZ(-100px);
+				background: rgba(240,182,49,.5);
+			}
+			.box5{
+				-webkit-transform:translateZ(-100px);
+				transform:translateZ(-100px);
+				background: rgba(131,175,155,.6);
+			}
+			.box6{
+				-webkit-transform:translateZ(100px);
+				transform:translateZ(100px);
+				background: rgba(184,241,237,.6);
+			}
+			@-webkit-keyframes myBox{
+				
+				100%{
+					-webkit-transform:rotateX(180deg) rotateY(180deg) rotateZ(180deg);
+					-webkit-transform-origin: center center; 
+				}
+			}
+			@keyframes myBox{
+				100%{
+					-webkit-transform:rotateX(180deg) rotateY(180deg) rotateZ(180deg);
+					-webkit-transform-origin: center center; 
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+	        <div class="box1 box">1</div>
+	        <div class="box2 box">2</div>
+	        <div class="box3 box">3</div>
+	        <div class="box4 box">4</div>
+	        <div class="box5 box">5</div>
+	        <div class="box6 box">6</div>
+	    </div>
+	</body>
+</html>
