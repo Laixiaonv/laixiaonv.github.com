@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>JavaScript基础</title>
+		<link rel="stylesheet" href="../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+	</head>
+	<body >
+		<!--头部-->
+		<div class="head">
+			<div class="head_nav">XiaoPang</div>
+			<ul>
+				<li><a href="#">JavaScript</a></li>
+				<li><a href="#">css</a></li>
+				<li><a href="#">html</a></li>
+				<li><a href="../index.html">首页</a></li>
+			</ul>
+		</div>
+		<div class="box">
+			<div class="left">
+				<h2>CSS选择器（加强版）</h2>
+				<ul class="first">
+					<li>属性选择器
+						<ul class="second">
+							<li>[attr*=val] ：元素用attr表示的值中包含用val指定的字符
+								<div class="example">例：a[src*="abc"] 	选择其 src 属性中包含 “abc” 子串的每个&lt;a&gt;元素。</div>
+								<div class="example2">a[href*="e3.org"] 选择href属性中包含“e3.org”的&lt;a&gt;元素。</div>
+							</li>
+							<li>[attr^=val] ：开头字符为val的元素
+								<div class="example">例：a[src^="abc"] 	选择其 src 属性中开头为“abc” 字符串开头的每个&lt;a&gt;元素。</div>
+								<div class="example2">a[href^="e3.org"] 选择href属性中以“e3.org”字符串开头的&lt;a&gt;元素。</div>
+							</li>
+							<li>[attr$=val] ：结尾字符为val的元素 [属性$=尾字符]
+								<div class="example">例：若id="section1-2-1" 则[id$=\-1]<span class="font">（因为连接符‘-’前必须加上‘\’）</span></div>
+							</li>
+							<li>[attr|=val] ：attr属性开头字符为val的元素</li>
+						</ul>
+					</li>
+					<li>伪类选择器
+						<ul class="second">
+							<li>first-child ：属于父元素的第一个元素<div class="example">例：ul的第一个子元素 ul>li:first-child<span class="font">应先找到所有子元素，再从子元素中选第一个</span></div></li>
+							<li>last-child ：属于父元素的最后一个元素<br/><span class="font">用法同上</span></li>
+							<li>nth-child(n)："n"是指第几个，注意是从1开始
+								<div class="example">如：ul li:nth-child(1) => 选中父元素内第一个li子元素</div>
+							</li>
+						</ul>
+					</li>
+					<li>锚伪类
+						<ul class="second">
+							<li>link：未访问</li>
+							<li>active ：选择活动链接</li>
+							<li>visited ：已被访问</li>
+							<li>hover ：鼠标悬浮<span class="font">（不仅适用于链接）</span></li>
+						</ul>
+					</li>
+					<li>伪元素
+						<ul class="second">
+							<li>first-line：向某个元素的第一行文字使用</li>
+							<li>first-letter：首字母或第一个字</li>
+							<li>before：再某个元素之前插入一些内容</li>
+							<li>after：在某个元素之前插入一些内容</li>
+						</ul>
+					</li>
+					<li>否定伪类选择符E:not(){} 匹配不含有s选择符的元素E
+						<div class="example">
+							p:not(.a){}：除了class = "a"的所有p标签元素
+						</div>
+					</li>
+				</ul>
+				
+				<h3>各种变换</h3>
+				<ul class="first">
+					<li>transform
+						<ul class="second">
+							<li>scale:放大/缩小
+								<div class="example">
+									transform:scale()<br />
+									scaleX():x轴方向变化<br />
+									scaleY():y轴方向变化
+								</div>
+							</li>
+							<li>translate：2D平移
+								<div class="example">
+									transform:translate() 括号中写两个值时，要用逗号隔开<br />
+									translateX():x轴方向变化<br />
+									translateY():y轴方向变化
+								</div>
+							</li>
+							<li>skew:扭曲  参数为度数，如-45deg
+								<div class="example">
+									transform:skew(x,y) 只写一个参数时，y方向默认为0<br />
+									skewX():x轴方向变化<br />
+									skewY():y轴方向变化
+								</div>
+							</li>
+							<li>transform-origin:改变中心点<br />
+								left：指定原点的横坐标为left<br />
+								center①：指定原点的横坐标为center<br />
+								right：指定原点的横坐标为right<br />
+								top：指定原点的纵坐标为top<br />
+								center②：指定原点的纵坐标为center<br />
+								bottom：指定原点的纵坐标为bottom<br />
+								参数还可以设为数值，如transform-origin：50px 50px<br />
+								同时也可以是百分比，如transform-origin：50% 50%
+							</li>
+						</ul>
+					</li>
+					<li>transaction:过渡效果
+						<ul class="second">
+							<li>transaction-property:设置属性是否参与过渡，可以写all，或者是单独某个样式
+								<div class="example">
+									transaction-property:all<br />
+									transaction-property:width,height,color
+								</div>
+							</li>
+							<li>transaction-duration:设置过渡时间</li>
+							<li>transaction-timing-function:动画类型<br />
+								linear:线性<br />
+								ease-in：慢 -> 快<br />
+								ease-out：快 -> 慢<br />
+								ease：平滑<br />
+								ease-in-out：慢 -> 快 -> 慢<br />
+							</li>
+							<li>transaction-delay:设置延迟时间</li>
+							<div class="font">复合型：① ② ③ ④</div>
+						</ul>
+					</li>
+					<li>边框渲染(box-sizing)
+						<ul class="second">
+							<li>content-box:标准盒模型，padding和margin不包含在width和height之中</li>
+							<li>border-box：怪异盒模型，包含在width和height之间</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--页脚-->
+		<div class="footer">
+			<div class="footer_main">
+				<div class="f_text2">我也不知道这里要写什么</div>
+			</div>
+		</div>
+	</body>
+</html>
