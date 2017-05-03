@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>JavaScript基础</title>
+		<link rel="stylesheet" href="../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+	</head>
+	<body >
+		<!--头部-->
+		<div class="head">
+			<div class="head_nav">XiaoPang</div>
+			<ul>
+				<li><a href="#">JavaScript</a></li>
+				<li><a href="#">css</a></li>
+				<li><a href="#">html</a></li>
+				<li><a href="../index.html">首页</a></li>
+			</ul> 
+		</div> 
+		<div class="box"> 
+			<div class="left">
+				<h2>Sql 语句</h2>
+				<ul class="first">
+					<li>创建表格
+						<pre class="example">
+						CREATE TABLE database_name.table_name(
+						   column1 datatype  PRIMARY KEY(one or more columns),
+						   column2 datatype,
+						   column3 datatype,
+						   .....
+						   columnN datatype,
+						);
+						</pre>
+					</li>
+					<li>删除表
+						<pre class="example">
+						DROP TABLE database_name.table_name;
+						</pre>
+					</li>
+					<li>插入数据
+						<pre class="example">
+						A）INSERT INTO TABLE_NAME (column1, column2, column3,...columnN)]  VALUES (value1, value2, value3,...valueN);
+						B）INSERT INTO TABLE_NAME VALUES (value1,value2,value3,...valueN);
+						</pre>
+					</li>
+					<li>查询语句
+						<pre class="example">
+						A）SELECT column1, column2, columnN FROM table_name;
+						B）SELECT tbl_name FROM sqlite_master WHERE type = 'table';
+						</pre>
+					</li>
+					<li>修改语句
+						<pre class="example">
+						UPDATE table_name SET column1 = value1, column2 = value2...., columnN = valueN WHERE [condition];
+						如：update test set name="李四"，sex="男"  where id="3";
+						</pre>
+					</li>
+					<li>删除语句
+						<pre class="example">
+						DELETE FROM table_name WHERE [condition];
+						如：delete from test where id="3";
+						</pre>
+					</li>
+				</ul>
+				<h2>具体的使用方式 ：以下只是举个例子，事实上该功能已经被废弃，不推荐使用</h2>
+				<ul class="first">
+					<li>打开数据库<br/>
+						var db = openDatabase('testDB', '1.0', 'Test DB', 2 * 1024 * 1024);<br/>
+						openDatabase方法接收五个参数：<br/>
+						数据库名字;数据库版本号;显示名字;数据库保存数据的大小（以字节为单位 );回调函数（非必须)
+
+					</li>
+					<li>事务处理
+						<pre class="example">
+						db.transaction(function (context) {
+						           context.executeSql('CREATE TABLE IF NOT EXISTS testTable (id unique, name)');
+						           context.executeSql('INSERT INTO testTable (id, name) VALUES (0, "Byron")');
+						           context.executeSql('INSERT INTO testTable (id, name) VALUES (1, "Casper")');
+						           context.executeSql('INSERT INTO testTable (id, name) VALUES (2, "Frank")');
+						});
+						<span class="font">transaction方法用以处理事务，当一条语句执行失败的时候，整个事务回滚。方法有三个参数:
+						    包含事务内容的一个方法
+						    执行成功回调函数（可选）
+						    执行失败回调函数（可选）
+						</span>
+						</pre>
+					</li>
+					<li>执行命令
+						<pre class="example">
+						executeSql方法用以执行SQL语句，返回结果，方法有四个参数
+						    查询字符串
+						    用以替换查询字符串中问号的参数
+						    执行成功回调函数（可选）
+						    执行失败回调函数（可选）
+						   
+						</pre>
+					</li>
+					<textarea cols="130" rows="10">
+<!DOCTYPE html>
+	<html>
+		<head>
+			<meta charset="UTF-8">
+			<title></title>
+			<style>
+				table{
+					width: 200px;
+					margin: auto;
+				}
+			</style>
+		</head>
+		<body>
+			<table id="tb" border="" cellspacing="0" cellpadding="">
+				<caption>身份信息表</caption>
+					<tr>
+						<th>id</th>
+						<th>name</th>
+						<th>sex</th>
+						<th>age</th>
+					</tr>
+					<tbody id="tbd"></tbody>
+			</table>
+			<script type="text/javascript">
+				var tbd = document.getElementById("tbd");
+				//数据库
+				//此功能已废弃
+				//了解一下吧
+				var db = window.openDatabase("xiaonv",1.0,"xiaonvtable",1024*1024,fun);
+				function fun(e){
+					console.log(e);	
+				}
+				db.transaction(function(context){
+					context.executeSql("CREATE TABLE IF NOT EXISTS Info (id NT PRIMARY KEY,name TEXT,sex TEXT,age TEXT)");
+					context.executeSql("INSERT INTO Info (id,name,sex,age) VALUES ('5','李四','男','25')");
+					context.executeSql("select * from Info",[],function(content,results){
+					var len = results.rows.length;
+					for(var i = 0;i<len;i++){
+						var tr = document.createElement("tr");
+						var obj = results.rows.item(0);
+						for(j in obj){
+							var td = document.createElement("td");
+							td.innerText=results.rows.item(i)[j];
+							tr.appendChild(td);
+						}
+						tbd.appendChild(tr);
+					}
+				})
+			});  
+		</script>
+	</body>
+</html>  
+				</textarea><br />
+				<button>运行</button>
+				</ul>
+			</div>
+		</div> 
+		<!--页脚-->
+		<div class="footer"> 
+			<div class="footer_main">
+				<div class="f_text2">我也不知道这里要写什么</div>
+			</div>
+		</div>
+		<script>
+			var button = document.getElementsByTagName("button")[0];
+			var txt = document.getElementsByTagName("textarea")[0].value;
+			button.onclick = function(){
+				var newTab=window.open('about:blank');
+				newTab.document.write(txt);
+			}
+		</script>
+	</body>
+</html>

@@ -77,3 +77,17 @@ h2,h3,h4{
 .jietu{
 	width: 500px;
 }
+textarea{
+	resize: none;
+	display: block;
+}
+button{
+	background-color: #228B22;
+	border: 1px solid #228B22;
+	color: #fff;
+	line-height: 23px;
+	width: 60px;
+	float: left;
+	cursor: pointer;
+}
+
