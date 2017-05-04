@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>布局</title>
+		<link rel="stylesheet" href="../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+	</head>
+	<body >
+		<!--头部-->
+		<div class="head">
+			<div class="head_nav">XiaoPang</div>
+			<ul>
+				<li><a href="#">JavaScript</a></li>
+				<li><a href="#">css</a></li>
+				<li><a href="#">html</a></li>
+				<li><a href="../index.html">首页</a></li>
+			</ul> 
+		</div> 
+		<div class="box"> 
+			<div class="left">
+				<h2>布局</h2>
+				<ul class="first">
+					<li>普通静态布局：就是不管浏览器尺寸具体是多少，网页布局就按照当时写代码的布局来布置</li>
+					<li>流式布局：采用百分比确定宽度，位置不变，大小发生变化
+						<ul class="second">
+							<li>页面元素的宽度按照屏幕进行适配调整</li>
+							<li>布局切换时页面元素发生变化，但在每个布局中，页面元素不随窗口大小的调整发生变化</li>
+						</ul>
+					</li>
+					<li>自适应布局：位置发生变化，大小不发生变化
+						<ul class="second">
+							<li>分别为不同的屏幕分辨率定义布局</li>
+							<li>布局切换时页面元素发生变化，但在每个布局中，页面元素不随窗口大小的调整发生变化</li>
+							<li>可以把自适应布局看作是静态布局的一个系列</li>
+						</ul>
+					</li>
+					<li>弹性布局</li>
+					<li>响应式布局
+						<ul class="second">
+							<li>分别为不同的屏幕分辨率定义布局</li>
+							<li>在每个布局中，应用流式布局的概念，即网页元素宽度随着窗口调整而自动适配</li>
+							<li>可以把响应式布局看作是流失布局和自适应布局设计理念的融合</li>
+						</ul>
+					</li>
+					<li>媒体查询
+						<ul class="second">
+							<li>媒体查询由媒体类型和一个或多个检测媒体特性的条件表达式组成，
+								媒体查询可用于检测的媒体特性有width，和height，color，等，
+								使用媒体查询可以在不改变页面内容 情况下，为特定的一些输出设备定制显示效果。
+							</li>
+							<li>在css2中，通过link标签中的media属性为样式表指定设备类型（如显示屏或者打印机）:<br/>
+								 <pre>< link rel="stylesheet" type="text/css" media="screen">表示显示屏时应用的样式。</pre>
+							</li>
+							<li>有三种显示方式<br />
+								<pre class="example">
+							head标签中链接css文件使用媒体查询:
+								< link rel=”stylesheet”  media=”screen and (orientation:portrait)”  href=”portrait-screen.css” />
+							在css样式表中使用媒体查询:
+								如@media screen and (max-device-width:400px){ 
+									H1{color:red}
+								}
+								</pre>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--页脚-->
+		<div class="footer">
+			<div class="footer_main">
+				<div class="f_text2">我也不知道这里要写什么</div>
+			</div>
+		</div>
+	</body>
+</html>
