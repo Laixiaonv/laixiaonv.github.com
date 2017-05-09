@@ -37,6 +37,12 @@
 					</li>
 					<li>弹性布局</li>
 					<li>响应式布局
+						<pre class="example">
+						< meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" >
+							width=device-width:自适应屏幕大小
+							initial-scale=1：初始化缩放
+							user-scalable=no：用户是否可以缩放，no/yes/0/1/true/false
+						</pre>
 						<ul class="second">
 							<li>分别为不同的屏幕分辨率定义布局</li>
 							<li>在每个布局中，应用流式布局的概念，即网页元素宽度随着窗口调整而自动适配</li>
@@ -55,7 +61,7 @@
 							<li>有三种显示方式<br />
 								<pre class="example">
 							head标签中链接css文件使用媒体查询:
-								< link rel=”stylesheet”  media=”screen and (orientation:portrait)”  href=”portrait-screen.css” />
+								< link rel="stylesheet"  media=”screen and (orientation:portrait)”  href=”portrait-screen.css” />
 							在css样式表中使用媒体查询:
 								如@media screen and (max-device-width:400px){ 
 									H1{color:red}

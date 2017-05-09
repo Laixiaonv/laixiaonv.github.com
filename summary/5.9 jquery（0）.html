@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>jquery事件</title>
+		<link rel="stylesheet" href="../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+	</head>
+	<body >
+		<!--头部-->
+		<div class="head">
+			<div class="head_nav">XiaoPang</div>
+			<ul>
+				<li><a href="#">JavaScript</a></li>
+				<li><a href="#">css</a></li>
+				<li><a href="#">html</a></li>
+				<li><a href="../index.html">首页</a></li>
+			</ul> 
+		</div> 
+		<div class="box"> 
+			<div class="left">
+				<h2>jquery事件（一些常见的就和js事件差不多，这里写几个自己不太熟悉的）</h2>
+				<ul class="first">
+					<li>ready():DOM加载完成后执行(可以在一个网页中无限次数使用)
+						<pre class="example">
+						$(document).ready(function(){
+						  // 在这里写你的代码...
+						});
+						</pre>
+					</li>
+					<li>hover:模仿悬浮事件，可以有两个参数，也就是两个function函数<br/>
+						第一个为移入时触发的函数，第二个为移出时触发的函数
+						<pre class="example">
+							hover()方法通过绑定变量"handlerInOut"来切换方法。
+							$("td").bind("mouseenter mouseleave",handlerInOut);
+							$("td").hover(handlerInOut);
+						</pre>
+					</li>
+					<li>bind:同时绑定多个事件
+						<div class="font">jQuery 3.0中已弃用此方法，所以要用 on()代替。</div>
+						<pre class="example">
+						$(".box1").bind({click:function(){
+							$(this).css("color","#fff");},
+							mouseenter:function(){
+								$(this).css("font-size","18px");
+							}
+						})
+						</pre>
+					</li>
+					<li>trigger():用于在每个匹配元素上触发指定类型的事件,此外，你还可以在触发事件时为事件处理函数传入额外的参数。
+						<pre class="example">
+						 $('#button1').click(function(){   
+							alert('button1');   
+							$('#button2').trigger('click');     //点击1的时候，触发2   
+						});   
+				    
+						$('#button2').click(function(){   
+							alert('button2');   
+							$("#button3").trigger("myEvent", ["Hello","World!"]);    //触发3
+						});    
+				    
+						$("#button3").bind("myEvent", function (event, message1, message2){   
+							alert(message1 + ' ' + message2);       //Hello World
+						});   
+						</pre>
+					</li>
+					
+				</ul>
+			</div>
+		</div>
+		<!--页脚-->
+		<div class="footer">
+			<div class="footer_main">
+				<div class="f_text2">我也不知道这里要写什么</div>
+			</div>
+		</div>
+	</body>
+</html>
