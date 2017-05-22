@@ -171,6 +171,83 @@
 						</tbody>
 					</table>
 				</ul>
+				<h3>表单</h3>
+				<ul class="first">
+					<li>单独的表单控件会被自动赋予一些全局样式。所有设置了 .form-control 类的<code> &lt;input&gt;</code>、<code>&lt;textarea&gt; </code>和 <code>&lt;select&gt; </code>元素都将被默认设置宽度属性为 width: 100%;。 将 <code>label </code>元素和前面提到的控件包裹在 <code>.form-group </code>中可以获得最好的排列</li>
+				
+					这是一个例子<br /><br />
+					<form  class="form-horizontal">
+						<div class="form-group">
+							<label class="col-xs-2 control-label">用户名：</label>
+							<div class="col-xs-10">
+								<input type="text" name="" class="form-control" value="" placeholder="请输入用户名"/>
+							</div>
+							
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label">密码：</label>
+							<div class="col-xs-10">
+								<input type="text" name="" class="form-control" value="" placeholder="请输入密码"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label">上传文件：</label>
+							<div class="col-xs-10">
+								<input type="file" name="" class="" value="" placeholder="请输入密码"/>
+								<span class="help-block">上传文件格式：.txt,.jpg</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label">情趣爱好：</label>
+							<div class="col-xs-10 checkbox">
+								<label>
+									<input type="checkbox" name=""  value=""/>游戏
+								</label>
+								<label>
+									<input type="checkbox" name=""  value=""/>睡觉
+								</label>
+								<label>
+									<input type="checkbox" name=""  value=""/>学习
+								</label>
+								<label>
+									<input type="checkbox" name=""  value=""/>吃
+								</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label">学历：</label>
+							<div class="col-xs-10 radio">
+								<label for="study">
+									<input type="radio" name="study"  value=""/>初中
+								</label>
+								<label for="study">
+									<input type="radio" name="study"  value=""/>高中
+								</label>
+								<label for="study">
+									<input type="radio" name="study"  value=""/>专科
+								</label>
+								<label for="study">
+									<input type="radio" name="study"  value=""/>本科
+								</label>
+								<label for="study">
+									<input type="radio" name="study"  value=""/>研究生
+								</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label">个人简介：</label>
+							<div class="col-xs-10">
+								<textarea placeholder="请输入信息"class="form-control" rows="10" ></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label"></label>
+							<div class="col-xs-10">
+								<button class="btn btn-danger " >提交</button>
+							</div>
+						</div>
+					</form>
+				</ul>
 			</div>
 		</div>
 		<!--页脚-->
